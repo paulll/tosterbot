@@ -1,0 +1,14 @@
+{
+	"deps_files": [],
+	"name": "lang.gen.dict",
+	"before": [
+		"core.lang"
+	],
+	"main": "index.js",
+	"desc": "Генератор фраз по словарю",
+	"deps_npm": [],
+	"deps": [
+		"core.namespace",
+		"lib.dict"
+	]
+}

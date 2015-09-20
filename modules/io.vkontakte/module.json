@@ -1,0 +1,20 @@
+{
+	"deps_files": [],
+	"desc": "Интерфейс общения через вк",
+	"deps_npm": [
+		{
+			"name": "es6-shim",
+			"shared": true,
+			"min-version": "0.0.0"
+		}
+	],
+	"before": [
+		"core.io"
+	],
+	"main": "index.js",
+	"name": "io.vkontakte",
+	"deps": [
+		"core.namespace",
+		"lib.vkontakte"
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"name": "lib.vkontakte",
+	"main": "index.js",
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"desc": "Привязка API вконтакте, longpoll-сокет"
+}

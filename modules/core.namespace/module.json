@@ -1,0 +1,6 @@
+{
+	"name": "core.namespace",
+	"main": "index.js",
+	"deps": [],
+	"deps_npm": []
+}

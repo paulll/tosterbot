@@ -1,0 +1,54 @@
+// [PackageDev] target_format: plist, ext: tmLanguage
+{
+	"name": "DictGen",
+	"scopeName": "source.dg",
+	"fileTypes": ["dg"],
+	"uuid": "f6ac93fe-7e12-4b87-9661-566e8262c50f",
+	"patterns": [
+		{
+			"comment": "Defining a constant",
+			"name": "meta.definition.dg",
+			"captures": {
+			    "1": { "name": "variable.other.dg" },
+			    "2": { "name": "keyword.operator.dg" }
+			},
+			"match": "(.*)\\s*(=)\\s*"
+		},
+		{
+			"comment": "Including something",
+			"name": "meta.inclusion.dg",
+			"captures": {
+			    "1": { "name": "keyword.control.dg" },
+			    "2": { "name": "string.unquoted.dg" },
+			    "3": { "name": "keyword.control.dg" },
+			    "4": { "name": "variable.other.dg" }
+			},
+			"match": "^(include|import)\\s+(.*)\\s+(as)\\s+(.*)$"
+		},
+		{
+			"comment": "Print & exit",
+			"name": "meta.returning",
+			"captures": {
+			    "1": { "name": "keyword.control.dg" },
+			    "2": { "name": "meta.code.dg" }
+			},
+			"match": "^(return)\\s+(.*)$"
+		},
+		{
+			"comment": "Reading constant",
+			"name": "constant.character.dg",
+			"match": "(%[a-zA-Z _ĥŭĵĝĉŝ']+%)",
+			"captures": {
+			    "1": { "name": "constant.character.dg" }
+			}
+		},
+		{
+			"name": "keyword.operator.dg",
+			"match": "(\\||!|\\?|,)"
+		},
+		{
+			"name": "string.unquoted.dg",
+			"match": "[a-zA-Z _ĥŭĵĝĉŝ]+"
+		}
+	]
+}

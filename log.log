@@ -1,0 +1,27 @@
+AI system is initializing..
+Found undefined modules
+Building dependency graph
+Reached loading state
+Loading: core.namespace
+Loading: lang.gen.dict
+Loading: lib.simplify
+Loading: lib.dict
+Loading: lang.parse.dict
+Loading: lib.array.random
+Loading: lang.rus.generator.templated
+Loading: core.lang
+Loading: brain.talk
+Loading: core.brain
+Loading: lib.vkontakte
+Loading: io.vkontakte
+Loading: core.io
+Loading: core.lib
+Loading: core.core
+Loading: io.tcp
+Loading: notify.xsel
+Loading: sense.xsel
+Everything seems to be ready
+Db loaded! null [ { params: { action: 'debug.currentAction', merge: [Object] },
+    ast: Set { [Object], [Object], [Object] } },
+  { params: { answer: 'ru.greeting', merge: [Object] },
+    ast: Set { [Object], [Object], [Object], [Object] } } ]

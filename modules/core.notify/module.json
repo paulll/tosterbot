@@ -1,0 +1,13 @@
+{
+	"name": "core.notify",
+	"deps_files": [],
+	"desc": "",
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"before": [
+		"core.core"
+	],
+	"main": "index.js"
+}

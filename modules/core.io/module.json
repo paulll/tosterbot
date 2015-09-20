@@ -1,0 +1,13 @@
+{
+	"desc": "Загружается после всех io.*",
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"before": [
+		"core.core"
+	],
+	"main": "index.js",
+	"deps_files": [],
+	"name": "core.io"
+}

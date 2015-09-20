@@ -1,0 +1,13 @@
+{
+	"name": "core.brain",
+	"main": "index.js",
+	"before": [
+		"core.core"
+	],
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"deps_files": [],
+	"desc": "Загружается после всех brain.*"
+}

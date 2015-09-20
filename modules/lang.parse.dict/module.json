@@ -1,0 +1,15 @@
+{
+	"name": "lang.parse.dict",
+	"deps": [
+		"core.namespace",
+		"lib.dict",
+		"lib.simplify"
+	],
+	"deps_files": [],
+	"main": "index.js",
+	"desc": "Парсер фраз по словарю",
+	"deps_npm": [],
+	"before": [
+		"core.lang"
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"deps": [
+		"core.namespace"
+	],
+	"deps_files": [],
+	"before": [
+		"core.core"
+	],
+	"main": "index.js",
+	"name": "core.action",
+	"deps_npm": [],
+	"desc": ""
+}

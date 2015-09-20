@@ -1,0 +1,662 @@
+npm WARN deprecated MD5@1.3.0: deprecated, use lowercase 'md5@2.x' from now on
+
+> node-mpg123-util@0.0.1 install /home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/node-mpg123-util
+> node-gyp rebuild
+
+make: вход в каталог «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/node-mpg123-util/build»
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/compat.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/parse.o
+../deps/mpg123/src/libmpg123/parse.c: В функции «check_lame_tag»:
+../deps/mpg123/src/libmpg123/parse.c:184:27: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+       if(fr->track_frames > TRACK_MAX_FRAMES) fr->track_frames = 0; /* endless stream? */
+                           ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «handle_id3v2»:
+../deps/mpg123/src/libmpg123/parse.c:1013:31: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug("no useful ID3v2");
+                               ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «skip_junk»:
+../deps/mpg123/src/libmpg123/parse.c:1081:71: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug1("hopefully found one at %"OFF_P, (off_p)fr->rd->tell(fr));
+                                                                       ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «wetwork»:
+../deps/mpg123/src/libmpg123/parse.c:1149:114: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+    if(VERBOSE3) debug3("resync try %li at %"OFF_P", got newhead 0x%08lx", try, (off_p)fr->rd->tell(fr),  newhead);
+                                                                                                                  ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/frame.o
+../deps/mpg123/src/libmpg123/frame.c: В функции «INT123_frame_buffers»:
+../deps/mpg123/src/libmpg123/frame.c:285:28: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  if(2*2*0x110*sizeof(real) > buffssize)
+                            ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/format.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/equalizer.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/id3.o
+../deps/mpg123/src/libmpg123/id3.c: В функции «INT123_parse_new_id3»:
+../deps/mpg123/src/libmpg123/id3.c:576:3: предупреждение: right-hand operand of comma expression has no effect [-Wunused-value]
+   ,1 \
+   ^
+../deps/mpg123/src/libmpg123/id3.c:661:35: замечание: in expansion of macro «threebytes_to_long»
+        if(fr->id3v2.version == 2) threebytes_to_long(tagdata+pos, framesize);
+                                   ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/optimize.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/readers.o
+../deps/mpg123/src/libmpg123/readers.c: В функции «plain_read»:
+../deps/mpg123/src/libmpg123/readers.c:60:70: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug2("read %li bytes of %li", (long)ret, (long)count);
+                                                                      ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «bc_add»:
+../deps/mpg123/src/libmpg123/readers.c:630:93: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(size >=4) debug4("first bytes: %02x %02x %02x %02x", data[0], data[1], data[2], data[3]);
+                                                                                             ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «bc_forget»:
+../deps/mpg123/src/libmpg123/readers.c:728:42: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug("forget with nothing there!");
+                                          ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «INT123_feed_more»:
+../deps/mpg123/src/libmpg123/readers.c:763:33: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug("feed_more");
+                                 ^
+../deps/mpg123/src/libmpg123/readers.c:772:82: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+   (unsigned long)fr->rdat.buffer.last->size, (unsigned long)fr->rdat.buffer.size);
+                                                                                  ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «buffered_fullread»:
+../deps/mpg123/src/libmpg123/readers.c:848:97: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+    if(VERBOSE3) debug1("buffered_fullread: buffering %li bytes from stream (if > 0)", (long)got);
+                                                                                                 ^
+../deps/mpg123/src/libmpg123/readers.c:856:11: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+    if(got < sizeof(readbuf)) /* That naturally catches got == 0, too. */
+           ^
+../deps/mpg123/src/libmpg123/readers.c:867:73: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug2("wanted %li, got %li", (long)count, (long)gotcount);
+                                                                         ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/tabinit.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/libmpg123.o
+../deps/mpg123/src/libmpg123/libmpg123.c: В функции «mpg123_plain_strerror»:
+../deps/mpg123/src/libmpg123/libmpg123.c:1581:29: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  if(errcode >= 0 && errcode < sizeof(mpg123_error)/sizeof(char*))
+                             ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/index.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/stringbuf.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/icy.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/icy2utf8.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/ntom.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_8bit.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer1.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer2.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer3.o
+../deps/mpg123/src/libmpg123/layer3.c: В функции «III_dequantize_sample»:
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:804:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:818:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:842:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:890:4: замечание: in expansion of macro «REFRESH_MASK»
+    REFRESH_MASK;
+    ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1021:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1036:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1059:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1088:4: замечание: in expansion of macro «REFRESH_MASK»
+    REFRESH_MASK;
+    ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/feature.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64_x86_64_float.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_real.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64_float.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64_float.o
+  AR(target) Release/obj.target/deps/mpg123/libmpg123.a
+  COPY Release/libmpg123.a
+  CXX(target) Release/obj.target/binding/src/binding.o
+In file included from ../node_modules/nan/nan_new.h:190:0,
+                 from ../node_modules/nan/nan.h:80,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:3:
+../node_modules/nan/nan_implementation_12_inl.h: In static member function «static NanIntern::FactoryBase<v8::Signature>::return_t NanIntern::Factory<v8::Signature>::New(NanIntern::Factory<v8::Signature>::FTH, int, NanIntern::Factory<v8::Signature>::FTH*)»:
+../node_modules/nan/nan_implementation_12_inl.h:181:76: ошибка: нет подходящей функции для вызова «v8::Signature::New(v8::Isolate*, NanIntern::Factory<v8::Signature>::FTH&, int&, NanIntern::Factory<v8::Signature>::FTH*&)»
+   return v8::Signature::New(v8::Isolate::GetCurrent(), receiver, argc, argv);
+                                                                            ^
+In file included from ../src/binding.cc:1:0:
+/home/paulll/.node-gyp/4.0.0/include/node/v8.h:4675:27: замечание: candidate: static v8::Local<v8::Signature> v8::Signature::New(v8::Isolate*, v8::Local<v8::FunctionTemplate>)
+   static Local<Signature> New(
+                           ^
+/home/paulll/.node-gyp/4.0.0/include/node/v8.h:4675:27: замечание:   candidate expects 2 arguments, 4 provided
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:3:
+../node_modules/nan/nan.h: At global scope:
+../node_modules/nan/nan.h:171:25: ошибка: redefinition of «template<class T> v8::Local<T> _NanEnsureLocal(v8::Local<T>)»
+ NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Local<T> val) {
+                         ^
+../node_modules/nan/nan.h:166:25: замечание: «template<class T> v8::Local<T> _NanEnsureLocal(v8::Handle<T>)» previously declared here
+ NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Handle<T> val) {
+                         ^
+../node_modules/nan/nan.h:564:13: ошибка: «node::smalloc» не был декларирован
+     , node::smalloc::FreeCallback callback
+             ^
+../node_modules/nan/nan.h:564:35: ошибка: expected «,» or «...» before «callback»
+     , node::smalloc::FreeCallback callback
+                                   ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(char*, size_t, int)»:
+../node_modules/nan/nan.h:568:50: ошибка: нет декларации «callback» в этой области видимости
+         v8::Isolate::GetCurrent(), data, length, callback, hint);
+                                                  ^
+../node_modules/nan/nan.h:568:60: ошибка: нет декларации «hint» в этой области видимости
+         v8::Isolate::GetCurrent(), data, length, callback, hint);
+                                                            ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(const char*, uint32_t)»:
+../node_modules/nan/nan.h:575:67: ошибка: нет соответствующей функции для вызова «New(v8::Isolate*, const char*&, uint32_t&)»
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+In file included from ../node_modules/nan/nan.h:25:0,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:3:
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:31:40: замечание: candidate: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, v8::Local<v8::String>, node::encoding) <near match>
+ NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+                                        ^
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:31:40: замечание:   conversion of argument 3 would be ill-formed:
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:3:
+../node_modules/nan/nan.h:575:67: ошибка: некорректное преобразование из «uint32_t {aka unsigned int}» в «node::encoding» [-fpermissive]
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+In file included from ../node_modules/nan/nan.h:25:0,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:3:
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:43:40: замечание: candidate: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, char*, size_t) <near match>
+ NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+                                        ^
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:43:40: замечание:   conversion of argument 2 would be ill-formed:
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:3:
+../node_modules/nan/nan.h:575:67: ошибка: некорректное преобразование из «const char*» в «char*» [-fpermissive]
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(uint32_t)»:
+../node_modules/nan/nan.h:579:29: ошибка: could not convert «node::Buffer::New(v8::Isolate::GetCurrent(), ((size_t)size))» from «v8::MaybeLocal<v8::Object>» to «v8::Local<v8::Object>»
+     return node::Buffer::New(v8::Isolate::GetCurrent(), size);
+                             ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanBufferUse(char*, uint32_t)»:
+../node_modules/nan/nan.h:586:12: ошибка: «Use» не является элементом «node::Buffer»
+     return node::Buffer::Use(v8::Isolate::GetCurrent(), data, size);
+            ^
+In file included from ../src/binding.cc:3:0:
+../src/node_pointer.h: В функции «v8::Handle<v8::Value> WrapPointer(void*, size_t)»:
+../src/node_pointer.h:24:76: ошибка: нет соответствующей функции для вызова «NanNewBufferHandle(char*, size_t&, void (&)(char*, void*), void*&)»
+   return NanNewBufferHandle((char *)ptr, length, wrap_pointer_cb, user_data);
+                                                                            ^
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:3:
+../node_modules/nan/nan.h:561:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(char*, size_t, int)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (
+                                    ^
+../node_modules/nan/nan.h:561:36: замечание:   candidate expects 3 arguments, 4 provided
+../node_modules/nan/nan.h:571:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(const char*, uint32_t)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (
+                                    ^
+../node_modules/nan/nan.h:571:36: замечание:   candidate expects 2 arguments, 4 provided
+../node_modules/nan/nan.h:578:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(uint32_t)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (uint32_t size) {
+                                    ^
+../node_modules/nan/nan.h:578:36: замечание:   candidate expects 1 argument, 4 provided
+binding.target.mk:97: ошибка выполнения рецепта для цели «Release/obj.target/binding/src/binding.o»
+make: *** [Release/obj.target/binding/src/binding.o] Ошибка 1
+make: выход из каталога «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/node-mpg123-util/build»
+gyp ERR! build error 
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! stack     at ChildProcess.onExit (/home/paulll/.nvm/versions/node/v4.0.0/lib/node_modules/npm/node_modules/node-gyp/lib/build.js:270:23)
+gyp ERR! stack     at emitTwo (events.js:87:13)
+gyp ERR! stack     at ChildProcess.emit (events.js:172:7)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+gyp ERR! System Linux 4.0.7-300.fc22.x86_64
+gyp ERR! command "/home/paulll/.nvm/versions/node/v4.0.0/bin/node" "/home/paulll/.nvm/versions/node/v4.0.0/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "rebuild"
+gyp ERR! cwd /home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/node-mpg123-util
+gyp ERR! node -v v4.0.0
+gyp ERR! node-gyp -v v3.0.1
+gyp ERR! not ok 
+
+> speaker@0.2.5 install /home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/speaker
+> node-gyp rebuild
+
+make: вход в каталог «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/speaker/build»
+  CC(target) Release/obj.target/output/deps/mpg123/src/output/alsa.o
+../deps/mpg123/src/output/alsa.c: В функции «initialize_device»:
+../deps/mpg123/src/output/alsa.c:78:16: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  for (i = 0; i < NUM_FORMATS; ++i) {
+                ^
+../deps/mpg123/src/output/alsa.c: В функции «get_formats_alsa»:
+../deps/mpg123/src/output/alsa.c:201:16: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  for (i = 0; i < NUM_FORMATS; ++i) {
+                ^
+  AR(target) Release/obj.target/deps/mpg123/liboutput.a
+  COPY Release/liboutput.a
+  CXX(target) Release/obj.target/binding/src/binding.o
+In file included from ../node_modules/nan/nan_new.h:190:0,
+                 from ../node_modules/nan/nan.h:80,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:8:
+../node_modules/nan/nan_implementation_12_inl.h: In static member function «static NanIntern::FactoryBase<v8::Signature>::return_t NanIntern::Factory<v8::Signature>::New(NanIntern::Factory<v8::Signature>::FTH, int, NanIntern::Factory<v8::Signature>::FTH*)»:
+../node_modules/nan/nan_implementation_12_inl.h:181:76: ошибка: нет подходящей функции для вызова «v8::Signature::New(v8::Isolate*, NanIntern::Factory<v8::Signature>::FTH&, int&, NanIntern::Factory<v8::Signature>::FTH*&)»
+   return v8::Signature::New(v8::Isolate::GetCurrent(), receiver, argc, argv);
+                                                                            ^
+In file included from ../src/binding.cc:5:0:
+/home/paulll/.node-gyp/4.0.0/include/node/v8.h:4675:27: замечание: candidate: static v8::Local<v8::Signature> v8::Signature::New(v8::Isolate*, v8::Local<v8::FunctionTemplate>)
+   static Local<Signature> New(
+                           ^
+/home/paulll/.node-gyp/4.0.0/include/node/v8.h:4675:27: замечание:   candidate expects 2 arguments, 4 provided
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:8:
+../node_modules/nan/nan.h: At global scope:
+../node_modules/nan/nan.h:171:25: ошибка: redefinition of «template<class T> v8::Local<T> _NanEnsureLocal(v8::Local<T>)»
+ NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Local<T> val) {
+                         ^
+../node_modules/nan/nan.h:166:25: замечание: «template<class T> v8::Local<T> _NanEnsureLocal(v8::Handle<T>)» previously declared here
+ NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Handle<T> val) {
+                         ^
+../node_modules/nan/nan.h:564:13: ошибка: «node::smalloc» не был декларирован
+     , node::smalloc::FreeCallback callback
+             ^
+../node_modules/nan/nan.h:564:35: ошибка: expected «,» or «...» before «callback»
+     , node::smalloc::FreeCallback callback
+                                   ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(char*, size_t, int)»:
+../node_modules/nan/nan.h:568:50: ошибка: нет декларации «callback» в этой области видимости
+         v8::Isolate::GetCurrent(), data, length, callback, hint);
+                                                  ^
+../node_modules/nan/nan.h:568:60: ошибка: нет декларации «hint» в этой области видимости
+         v8::Isolate::GetCurrent(), data, length, callback, hint);
+                                                            ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(const char*, uint32_t)»:
+../node_modules/nan/nan.h:575:67: ошибка: нет соответствующей функции для вызова «New(v8::Isolate*, const char*&, uint32_t&)»
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+In file included from ../node_modules/nan/nan.h:25:0,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:8:
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:31:40: замечание: candidate: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, v8::Local<v8::String>, node::encoding) <near match>
+ NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+                                        ^
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:31:40: замечание:   conversion of argument 3 would be ill-formed:
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:8:
+../node_modules/nan/nan.h:575:67: ошибка: некорректное преобразование из «uint32_t {aka unsigned int}» в «node::encoding» [-fpermissive]
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+In file included from ../node_modules/nan/nan.h:25:0,
+                 from ../src/node_pointer.h:7,
+                 from ../src/binding.cc:8:
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:43:40: замечание: candidate: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, char*, size_t) <near match>
+ NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+                                        ^
+/home/paulll/.node-gyp/4.0.0/include/node/node_buffer.h:43:40: замечание:   conversion of argument 2 would be ill-formed:
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:8:
+../node_modules/nan/nan.h:575:67: ошибка: некорректное преобразование из «const char*» в «char*» [-fpermissive]
+     return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+                                                                   ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanNewBufferHandle(uint32_t)»:
+../node_modules/nan/nan.h:579:29: ошибка: could not convert «node::Buffer::New(v8::Isolate::GetCurrent(), ((size_t)size))» from «v8::MaybeLocal<v8::Object>» to «v8::Local<v8::Object>»
+     return node::Buffer::New(v8::Isolate::GetCurrent(), size);
+                             ^
+../node_modules/nan/nan.h: В функции «v8::Local<v8::Object> NanBufferUse(char*, uint32_t)»:
+../node_modules/nan/nan.h:586:12: ошибка: «Use» не является элементом «node::Buffer»
+     return node::Buffer::Use(v8::Isolate::GetCurrent(), data, size);
+            ^
+In file included from ../src/binding.cc:8:0:
+../src/node_pointer.h: В функции «v8::Handle<v8::Value> WrapPointer(void*, size_t)»:
+../src/node_pointer.h:24:76: ошибка: нет соответствующей функции для вызова «NanNewBufferHandle(char*, size_t&, void (&)(char*, void*), void*&)»
+   return NanNewBufferHandle((char *)ptr, length, wrap_pointer_cb, user_data);
+                                                                            ^
+In file included from ../src/node_pointer.h:7:0,
+                 from ../src/binding.cc:8:
+../node_modules/nan/nan.h:561:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(char*, size_t, int)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (
+                                    ^
+../node_modules/nan/nan.h:561:36: замечание:   candidate expects 3 arguments, 4 provided
+../node_modules/nan/nan.h:571:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(const char*, uint32_t)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (
+                                    ^
+../node_modules/nan/nan.h:571:36: замечание:   candidate expects 2 arguments, 4 provided
+../node_modules/nan/nan.h:578:36: замечание: candidate: v8::Local<v8::Object> NanNewBufferHandle(uint32_t)
+   NAN_INLINE v8::Local<v8::Object> NanNewBufferHandle (uint32_t size) {
+                                    ^
+../node_modules/nan/nan.h:578:36: замечание:   candidate expects 1 argument, 4 provided
+binding.target.mk:101: ошибка выполнения рецепта для цели «Release/obj.target/binding/src/binding.o»
+make: *** [Release/obj.target/binding/src/binding.o] Ошибка 1
+make: выход из каталога «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/speaker/build»
+gyp ERR! build error 
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! stack     at ChildProcess.onExit (/home/paulll/.nvm/versions/node/v4.0.0/lib/node_modules/npm/node_modules/node-gyp/lib/build.js:270:23)
+gyp ERR! stack     at emitTwo (events.js:87:13)
+gyp ERR! stack     at ChildProcess.emit (events.js:172:7)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+gyp ERR! System Linux 4.0.7-300.fc22.x86_64
+gyp ERR! command "/home/paulll/.nvm/versions/node/v4.0.0/bin/node" "/home/paulll/.nvm/versions/node/v4.0.0/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "rebuild"
+gyp ERR! cwd /home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/speaker
+gyp ERR! node -v v4.0.0
+gyp ERR! node-gyp -v v3.0.1
+gyp ERR! not ok 
+
+> lame@1.2.3 install /home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/lame
+> node-gyp rebuild
+
+make: вход в каталог «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/lame/build»
+deps/mpg123/test.target.mk:123: предупреждение: переопределение способа для цели «Release/test»
+deps/lame/test.target.mk:131: предупреждение: старый способ для цели «Release/test» игнорируются
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/VbrTag.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/bitstream.o
+../deps/lame/libmp3lame/bitstream.c: В функции «do_gain_analysis»:
+../deps/lame/libmp3lame/bitstream.c:992:24: предупреждение: неиспользуемая переменная «rov» [-Wunused-variable]
+     RpgResult_t *const rov = &gfc->ov_rpg;
+                        ^
+../deps/lame/libmp3lame/bitstream.c:991:32: предупреждение: неиспользуемая переменная «rsv» [-Wunused-variable]
+     RpgStateVar_t const *const rsv = &gfc->sv_rpg;
+                                ^
+../deps/lame/libmp3lame/bitstream.c:990:34: предупреждение: неиспользуемая переменная «cfg» [-Wunused-variable]
+     SessionConfig_t const *const cfg = &gfc->cfg;
+                                  ^
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/encoder.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/fft.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/gain_analysis.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/id3tag.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/lame.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/newmdct.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/presets.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/psymodel.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/quantize.o
+../deps/lame/libmp3lame/quantize.c: В функции «VBR_new_iteration_loop»:
+../deps/lame/libmp3lame/quantize.c:1734:28: предупреждение: variable «fullframebits» set but not used [-Wunused-but-set-variable]
+         int     mean_bits, fullframebits;
+                            ^
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/quantize_pvt.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/reservoir.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/set_get.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/tables.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/takehiro.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/util.o
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/vbrquantize.o
+../deps/lame/libmp3lame/vbrquantize.c: В функции «VBR_encode_frame»:
+../deps/lame/libmp3lame/vbrquantize.c:1279:29: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             max_nbits_ch[gr][ch] = max_bits[gr][ch];
+                             ^
+../deps/lame/libmp3lame/vbrquantize.c:1280:29: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             use_nbits_ch[gr][ch] = 0;
+                             ^
+../deps/lame/libmp3lame/vbrquantize.c:1283:22: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             that_[gr][ch].find = (cfg->full_outer_loop < 0) ? guess_scalefac_x34 : find_scalefac_x34;
+                      ^
+../deps/lame/libmp3lame/vbrquantize.c:1284:22: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             that_[gr][ch].gfc = gfc;
+                      ^
+../deps/lame/libmp3lame/vbrquantize.c:1285:22: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             that_[gr][ch].cod_info = &gfc->l3_side.tt[gr][ch];
+                      ^
+../deps/lame/libmp3lame/vbrquantize.c:1286:22: предупреждение: array subscript is above array bounds [-Warray-bounds]
+             that_[gr][ch].xr34orig = xr34orig[gr][ch];
+                      ^
+../deps/lame/libmp3lame/vbrquantize.c:1288:26: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 that_[gr][ch].alloc = short_block_constrain;
+                          ^
+../deps/lame/libmp3lame/vbrquantize.c:1291:26: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 that_[gr][ch].alloc = long_block_constrain;
+                          ^
+../deps/lame/libmp3lame/vbrquantize.c:1352:37: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 if (use_nbits_ch[gr][ch] > MAX_BITS_PER_CHANNEL) {
+                                     ^
+../deps/lame/libmp3lame/vbrquantize.c:1379:37: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 if (use_nbits_ch[gr][ch] > MAX_BITS_PER_CHANNEL) {
+                                     ^
+../deps/lame/libmp3lame/vbrquantize.c:1380:37: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                     max_nbits_ch[gr][ch] = MAX_BITS_PER_CHANNEL;
+                                     ^
+../deps/lame/libmp3lame/vbrquantize.c:1383:37: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                     max_nbits_ch[gr][ch] = use_nbits_ch[gr][ch];
+                                     ^
+../deps/lame/libmp3lame/vbrquantize.c:1385:53: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 max_nbits_gr[gr] += max_nbits_ch[gr][ch];
+                                                     ^
+../deps/lame/libmp3lame/vbrquantize.c:1400:72: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = MAX_BITS_PER_GRANULE * f[ch] / s;
+                                                                        ^
+../deps/lame/libmp3lame/vbrquantize.c:1400:41: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = MAX_BITS_PER_GRANULE * f[ch] / s;
+                                         ^
+../deps/lame/libmp3lame/vbrquantize.c:1403:41: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = 0;
+                                         ^
+../deps/lame/libmp3lame/vbrquantize.c:1482:68: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = max_nbits_gr[gr] * f[ch] / s;
+                                                                    ^
+../deps/lame/libmp3lame/vbrquantize.c:1482:41: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = max_nbits_gr[gr] * f[ch] / s;
+                                         ^
+../deps/lame/libmp3lame/vbrquantize.c:1485:41: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         max_nbits_ch[gr][ch] = 0;
+                                         ^
+../deps/lame/libmp3lame/vbrquantize.c:1500:45: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                         if (max_nbits_ch[gr][ch] > MAX_BITS_PER_CHANNEL) {
+                                             ^
+../deps/lame/libmp3lame/vbrquantize.c:1501:45: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                             max_nbits_ch[gr][ch] = MAX_BITS_PER_CHANNEL;
+                                             ^
+../deps/lame/libmp3lame/vbrquantize.c:1512:43: предупреждение: array subscript is above array bounds [-Warray-bounds]
+                 sum_gr += max_nbits_ch[gr][ch];
+                                           ^
+  CC(target) Release/obj.target/mp3lame/deps/lame/libmp3lame/version.o
+  AR(target) Release/obj.target/deps/lame/libmp3lame.a
+  COPY Release/libmp3lame.a
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/compat.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/parse.o
+../deps/mpg123/src/libmpg123/parse.c: В функции «check_lame_tag»:
+../deps/mpg123/src/libmpg123/parse.c:184:27: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+       if(fr->track_frames > TRACK_MAX_FRAMES) fr->track_frames = 0; /* endless stream? */
+                           ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «handle_id3v2»:
+../deps/mpg123/src/libmpg123/parse.c:1013:31: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug("no useful ID3v2");
+                               ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «skip_junk»:
+../deps/mpg123/src/libmpg123/parse.c:1081:71: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug1("hopefully found one at %"OFF_P, (off_p)fr->rd->tell(fr));
+                                                                       ^
+../deps/mpg123/src/libmpg123/parse.c: В функции «wetwork»:
+../deps/mpg123/src/libmpg123/parse.c:1149:114: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+    if(VERBOSE3) debug3("resync try %li at %"OFF_P", got newhead 0x%08lx", try, (off_p)fr->rd->tell(fr),  newhead);
+                                                                                                                  ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/frame.o
+../deps/mpg123/src/libmpg123/frame.c: В функции «INT123_frame_buffers»:
+../deps/mpg123/src/libmpg123/frame.c:285:28: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  if(2*2*0x110*sizeof(real) > buffssize)
+                            ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/format.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/equalizer.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/id3.o
+../deps/mpg123/src/libmpg123/id3.c: В функции «INT123_parse_new_id3»:
+../deps/mpg123/src/libmpg123/id3.c:576:3: предупреждение: right-hand operand of comma expression has no effect [-Wunused-value]
+   ,1 \
+   ^
+../deps/mpg123/src/libmpg123/id3.c:661:35: замечание: in expansion of macro «threebytes_to_long»
+        if(fr->id3v2.version == 2) threebytes_to_long(tagdata+pos, framesize);
+                                   ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/optimize.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/readers.o
+../deps/mpg123/src/libmpg123/readers.c: В функции «plain_read»:
+../deps/mpg123/src/libmpg123/readers.c:60:70: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug2("read %li bytes of %li", (long)ret, (long)count);
+                                                                      ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «bc_add»:
+../deps/mpg123/src/libmpg123/readers.c:630:93: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(size >=4) debug4("first bytes: %02x %02x %02x %02x", data[0], data[1], data[2], data[3]);
+                                                                                             ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «bc_forget»:
+../deps/mpg123/src/libmpg123/readers.c:728:42: предупреждение: suggest braces around empty body in an «else» statement [-Wempty-body]
+  else debug("forget with nothing there!");
+                                          ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «INT123_feed_more»:
+../deps/mpg123/src/libmpg123/readers.c:763:33: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug("feed_more");
+                                 ^
+../deps/mpg123/src/libmpg123/readers.c:772:82: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+   (unsigned long)fr->rdat.buffer.last->size, (unsigned long)fr->rdat.buffer.size);
+                                                                                  ^
+../deps/mpg123/src/libmpg123/readers.c: В функции «buffered_fullread»:
+../deps/mpg123/src/libmpg123/readers.c:848:97: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+    if(VERBOSE3) debug1("buffered_fullread: buffering %li bytes from stream (if > 0)", (long)got);
+                                                                                                 ^
+../deps/mpg123/src/libmpg123/readers.c:856:11: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+    if(got < sizeof(readbuf)) /* That naturally catches got == 0, too. */
+           ^
+../deps/mpg123/src/libmpg123/readers.c:867:73: предупреждение: suggest braces around empty body in an «if» statement [-Wempty-body]
+  if(VERBOSE3) debug2("wanted %li, got %li", (long)count, (long)gotcount);
+                                                                         ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/tabinit.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/libmpg123.o
+../deps/mpg123/src/libmpg123/libmpg123.c: В функции «mpg123_plain_strerror»:
+../deps/mpg123/src/libmpg123/libmpg123.c:1581:29: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  if(errcode >= 0 && errcode < sizeof(mpg123_error)/sizeof(char*))
+                             ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/index.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/stringbuf.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/icy.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/icy2utf8.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/ntom.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_8bit.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer1.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer2.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/layer3.o
+../deps/mpg123/src/libmpg123/layer3.c: В функции «III_dequantize_sample»:
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:804:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:818:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:842:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:890:4: замечание: in expansion of macro «REFRESH_MASK»
+    REFRESH_MASK;
+    ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1021:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1036:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1059:6: замечание: in expansion of macro «REFRESH_MASK»
+      REFRESH_MASK;
+      ^
+../deps/mpg123/src/libmpg123/layer3.c:695:12: предупреждение: сравнение знакового и беззнакового целых выражений [-Wsign-compare]
+  while(num < BITSHIFT) { \
+            ^
+../deps/mpg123/src/libmpg123/layer3.c:1088:4: замечание: in expansion of macro «REFRESH_MASK»
+    REFRESH_MASK;
+    ^
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/feature.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/dct64_x86_64_float.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_real.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64_float.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_stereo_x86_64_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64_s32.o
+  CC(target) Release/obj.target/mpg123/deps/mpg123/src/libmpg123/synth_x86_64_float.o
+  AR(target) Release/obj.target/deps/mpg123/libmpg123.a
+  COPY Release/libmpg123.a
+  CC(target) Release/obj.target/lamevectorroutines/deps/lame/libmp3lame/vector/xmm_quantize_sub.o
+../deps/lame/libmp3lame/vector/xmm_quantize_sub.c: В функции «fht_SSE2»:
+../deps/lame/libmp3lame/vector/xmm_quantize_sub.c:172:20: предупреждение: variable «v_s2» set but not used [-Wunused-but-set-variable]
+             __m128 v_s2;
+                    ^
+  AR(target) Release/obj.target/deps/lame/liblamevectorroutines.a
+  COPY Release/liblamevectorroutines.a
+  CXX(target) Release/obj.target/bindings/src/bindings.o
+  CXX(target) Release/obj.target/bindings/src/node_lame.o
+  CXX(target) Release/obj.target/bindings/src/node_mpg123.o
+  SOLINK_MODULE(target) Release/obj.target/bindings.node
+  COPY Release/bindings.node
+make: выход из каталога «/home/paulll/public/projects/bot6/node_modules/tts-speak/node_modules/lame/build»
+npm ERR! Linux 4.0.7-300.fc22.x86_64
+npm ERR! argv "/home/paulll/.nvm/versions/node/v4.0.0/bin/node" "/home/paulll/.nvm/versions/node/v4.0.0/bin/npm" "install" "tts-speak"
+npm ERR! node v4.0.0
+npm ERR! npm  v2.14.2
+npm ERR! code ELIFECYCLE
+
+npm ERR! node-mpg123-util@0.0.1 install: `node-gyp rebuild`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the node-mpg123-util@0.0.1 install script 'node-gyp rebuild'.
+npm ERR! This is most likely a problem with the node-mpg123-util package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node-gyp rebuild
+npm ERR! You can get their info via:
+npm ERR!     npm owner ls node-mpg123-util
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/paulll/public/projects/bot6/modules/io.speech.pocketgoogle/npm-debug.log

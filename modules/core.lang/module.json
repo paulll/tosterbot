@@ -1,0 +1,10 @@
+{
+	"name": "core.lang",
+	"main": "index.js",
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [
+		"async"
+	]
+}

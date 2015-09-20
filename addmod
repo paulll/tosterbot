@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+#
+# Shitty script to quick set up new packages
+#
+
+import os
+import json
+
+mod = {}
+
+mod['name'] = input('Название модуля\n> ')
+mod['desc'] = input('Краткое описание\n> ')
+mod['main'] = input('Главный файл\n[index.js]> ') or 'index.js'
+
+mod['deps'] = input('Зависимости\n[core.namespace]> ').split(', ')
+if mod['deps'][0] == '':
+	mod['deps'] = ['core.namespace']
+
+modsuper = 'core.' + mod['name'].split('.')[0]
+mod['before'] = input('Зависимое\n['+ modsuper +']> ').split(', ')
+if mod['before'][0] == '':
+	mod['before'] = [modsuper]
+
+mod['deps_npm'] = input('Требуемые модули npm\n> ').split(', ')
+if mod['deps_npm'][0] == '':
+	mod['deps_npm'] = []
+
+mod['deps_files'] = input('Требуемые файлы\n> ').split(', ')
+if mod['deps_files'][0] == '':
+	mod['deps_files'] = []
+
+try:
+	os.mkdir('modules/' + mod['name'])
+except:
+	pass
+
+metafile = open('modules/' + mod['name'] + '/module.json', 'w');
+mainfile = open('modules/' + mod['name'] + '/' + mod['main'], 'a');
+
+metafile.write(json.dumps(mod, indent='\t', ensure_ascii=False))
+mainfile.write('')
+
+metafile.close()
+mainfile.close()
+
+print ('Готово!')

@@ -1,0 +1,14 @@
+{
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"main": "index.js",
+	"desc": "Тулкит для больших словарей на основе множеств",
+	"name": "lib.dict",
+	"deps": [
+		"core.namespace",
+		"lib.simplify"
+	],
+	"deps_npm": []
+}

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>dg</string>
+	</array>
+	<key>name</key>
+	<string>DictGen</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.dg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.dg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Defining a constant</string>
+			<key>match</key>
+			<string>(.*)\s*(=)\s*</string>
+			<key>name</key>
+			<string>meta.definition.dg</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.dg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string.unquoted.dg</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.dg</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.dg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Including something</string>
+			<key>match</key>
+			<string>^(include|import)\s+(.*)\s+(as)\s+(.*)$</string>
+			<key>name</key>
+			<string>meta.inclusion.dg</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.dg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>meta.code.dg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Print &amp; exit</string>
+			<key>match</key>
+			<string>^(return)\s+(.*)$</string>
+			<key>name</key>
+			<string>meta.returning</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>constant.character.dg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Reading constant</string>
+			<key>match</key>
+			<string>(%[a-zA-Z _ĥŭĵĝĉŝ']+%)</string>
+			<key>name</key>
+			<string>constant.character.dg</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(\||!|\?|,)</string>
+			<key>name</key>
+			<string>keyword.operator.dg</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>[a-zA-Z _ĥŭĵĝĉŝ]+</string>
+			<key>name</key>
+			<string>string.unquoted.dg</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.dg</string>
+	<key>uuid</key>
+	<string>f6ac93fe-7e12-4b87-9661-566e8262c50f</string>
+</dict>
+</plist>

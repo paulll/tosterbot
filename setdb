@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+// usage: ./setdb <input file>
+// parses input file and writes do the db
+// ex:
+// 
+// @action do.random
+// @answer ru.greeting
+// @param.mood good
+// @param.randomness 1
+// привет = прив!ет?
+// здраствуй = здарова, здраствуй, здрасте, здраствуйте, здравия желаю
+// хай = хей, хелло, хай
+// return привет | здраствуй | хай
+// 
+// 
+
+global.api = {};
+global.api.lib = {};
+
+var fs = require('fs'),
+	data = fs.readFileSync(process.argv.pop(), {encoding: 'utf8'}),
+	redis = require("redis"),
+	client = redis.createClient(),
+	simplify = require('./modules/lib.simplify'),
+	dictParse = require('./dictgen/dictparse.js'),
+	dictCheck = require('./dictgen/dictcheck.js');
+
+
+console.log('Разделение ввода на основные фрагменты')
+packs = data.match(/^@[\s\S]*?return.*/gm);
+console.log('Найдено', packs.length, 'фрагментов')
+
+packs.map(function (pack, i) {
+
+	console.log('Обработка фрагмента №', i);
+
+	var params = {},
+		paramlist = pack.match(/^@.*/gm),
+		source = pack.match(/^[^@].*/gm).join('\n').split('').join('');
+
+	paramlist.forEach(function(param) {
+		
+		param = param.substr(1);
+
+		if (~param.split(/\s+/g)[0].indexOf('.')) {
+			var val = param.split(/\s+/g),
+				path = val.shift().split('.'),
+				top = path.reduce(function(prev, cur, i, arr){
+					if (i + 1 == arr.length) {
+						return [prev, cur];
+					}
+					return prev[cur] = {}; 
+				}, params);
+
+			top[0][top[1]] = isNaN(parseFloat(val.join(''))) ? val.join(' ') : parseFloat(val.join(''));
+		} else {
+			var val = param.split(/\s+/g);
+			params[val.shift()] = isNaN(parseFloat(val.join(''))) ? val.join(' ') : parseFloat(val.join(''));
+		}
+	});
+
+
+
+	if (JSON.stringify(params.params) == '{}') {
+		delete params.params;
+	}
+
+	console.log('Генерирование словаря..');
+	var deb = [];
+
+	var words = stdout.split('\n'),
+		json = JSON.stringify(params),
+		inserts = Array.prototype.concat.apply([], words.filter(function (e) {return e.length}).map(function (word) {
+			return [api.lib.simplify(word), json];
+		}));
+
+	deb.push(inserts.reduce(function (v, c) {
+		v.words.push(c[0]);
+		v.json = c[1];
+		return v;
+	}, {words: [], json: ''}));
+
+	return false
+
+	client.mset(inserts, function (error, res) {
+		if (error) {console.log(error)}
+	});
+
+	var tfilename = './' + (Math.random()*1e17).toString(34) + '.json'; 
+	fs.writeFileSync(tfilename, JSON.stringify(deb, false,  '\t'));
+
+	process.on('SIGINT', function (){
+		fs.unlinkSync(tfilename);
+	});
+
+	setTimeout(function(){}, Infinity);
+});

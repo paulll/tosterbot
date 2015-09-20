@@ -1,0 +1,26 @@
+{
+	"name": "io.speech.pocketgoogle",
+	"main": "index.js",
+	"deps_files": [],
+	"before": [
+		"core.io"
+	],
+	"deps": [
+		"core.namespace"
+	],
+	"desc": "Распознавание ключевого слова по pocketsphinx, остальная речь - Google Speech API",
+	"deps_npm": [
+		{
+			"name": "inherits",
+			"shared": true
+		},
+		{
+			"name": "play-sound",
+			"shared": true
+		},
+		{
+			"name": "hyperquest",
+			"shared": true
+		}
+	]
+}

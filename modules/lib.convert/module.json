@@ -1,0 +1,13 @@
+{
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"main": "index.js",
+	"desc": "Конвертирует данные",
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"name": "lib.convert"
+}

@@ -1,0 +1,4 @@
+start = ki, ti, i, ĉi, neni
+end = a, al, am, e, el, es, o, om, u
+all = %start%%end%!j?n?
+return all

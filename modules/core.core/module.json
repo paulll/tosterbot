@@ -1,0 +1,11 @@
+{
+	"deps_npm": [],
+	"desc": "Загружается после всего",
+	"deps_files": [],
+	"deps": [
+		"core.namespace"
+	],
+	"main": "index.js",
+	"name": "core.core",
+	"before": []
+}

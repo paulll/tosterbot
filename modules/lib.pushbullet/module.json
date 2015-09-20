@@ -1,0 +1,13 @@
+{
+	"main": "index.js",
+	"deps": [
+		"core.namespace"
+	],
+	"name": "lib.pushbullet",
+	"desc": "Pushbullet API integration",
+	"deps_npm": [],
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	]
+}

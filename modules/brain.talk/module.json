@@ -1,0 +1,14 @@
+{
+	"name": "brain.talk",
+	"main": "index.js",
+	"desc": "Определяет, что делать с поступающей и ответной информацией.",
+	"deps": [
+		"core.namespace",
+		"core.lang"
+	],
+	"deps_npm": [],
+	"deps_files": [],
+	"before": [
+		"core.brain"
+	]
+}

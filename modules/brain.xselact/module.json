@@ -1,0 +1,17 @@
+{
+	"before": [
+		"core.brain"
+	],
+	"deps": [
+		"core.namespace",
+		"lib.convert",
+		"notify.xsel",
+		"sense.xsel",
+		"lib.dict"
+	],
+	"deps_npm": [],
+	"deps_files": [],
+	"desc": "Оперирует данными xsel по запросу",
+	"name": "brain.xselact",
+	"main": "index.js"
+}

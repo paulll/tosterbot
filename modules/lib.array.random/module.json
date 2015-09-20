@@ -1,0 +1,13 @@
+{
+	"name": "lib.array.random",
+	"main": "index.js",
+	"deps_files": [],
+	"deps_npm": [],
+	"desc": "Добавляет функцию получения случайного элемента в прототип массива",
+	"before": [
+		"core.lib"
+	],
+	"deps": [
+		"core.namespace"
+	]
+}

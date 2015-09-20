@@ -1,0 +1,13 @@
+{
+	"deps_npm": [],
+	"deps_files": [],
+	"before": [
+		"core.notify"
+	],
+	"desc": "Pushbullet integration",
+	"deps": [
+		"lib.pushbullet"
+	],
+	"name": "notify.pushbullet",
+	"main": "index.js"
+}

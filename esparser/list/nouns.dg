@@ -1,0 +1,5 @@
+import include/roots.list as root
+import include/prefixes.list as prefix
+import include/suffixes.list as suffix
+words = %prefix%?%root%!%suffix%?o
+return words

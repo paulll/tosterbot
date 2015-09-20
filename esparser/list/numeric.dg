@@ -1,0 +1,11 @@
+base = du, tri, kvar, kvin, ses, sep, ok, naŭ
+ebase = unu | %base%
+deks = %base%?dek
+cents = %base%?cent
+extra = dek, cent, mil, miliono, miliardo, biliono, triliono, kvadriliono, kvintiliono, sekstiliono, septiliono, oktiliono, noniliono, deciliono
+any = %ebase% | %deks% | %cents% | %extra%
+double = %deks%-%ebase% | %cents%-%ebase%
+postfix = on, obl, op
+ending = a, o, e
+all = %any%! %postfix%? %ending%? j? n? | %double%! %postfix%? a! j? n?
+return all

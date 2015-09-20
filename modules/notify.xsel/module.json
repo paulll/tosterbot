@@ -1,0 +1,11 @@
+{
+	"name": "notify.xsel",
+	"main": "index.js",
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"deps_files": [
+		"/usr/bin/xsel"
+	]
+}

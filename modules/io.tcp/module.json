@@ -1,0 +1,11 @@
+{
+	"name": "io.tcp",
+	"main": "index.js",
+	"desc": "Модуль для двустороннего сообщения по TCP-каналу. Рекомендуется netcat",
+	"deps": [
+		"core.namespace",
+		"core.lang"
+	],
+	"deps_npm": [],
+	"deps_files": []
+}
