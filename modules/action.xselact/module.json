@@ -1,6 +1,6 @@
 {
 	"before": [
-		"core.brain"
+		"core.action"
 	],
 	"deps": [
 		"core.namespace",
@@ -12,6 +12,6 @@
 	"deps_npm": [],
 	"deps_files": [],
 	"desc": "Оперирует данными xsel по запросу",
-	"name": "brain.xselact",
+	"name": "action.xselact",
 	"main": "index.js"
 }

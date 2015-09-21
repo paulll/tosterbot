@@ -1,3 +1,6 @@
+
+return false;
+
 var PushBullet = require('pushbullet'),
 	pusher = new PushBullet('KkRntoc0bHFN3tZymIv1J5OAz8r0IXf2'),
 	stream = pusher.stream(),
