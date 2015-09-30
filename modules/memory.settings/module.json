@@ -1,0 +1,13 @@
+{
+	"deps": [
+		"core.namespace"
+	],
+	"deps_npm": [],
+	"deps_files": [],
+	"before": [
+		"core.memory"
+	],
+	"name": "memory.settings",
+	"main": "index.js",
+	"desc": "Хранилище настроек и конфигураций"
+}
