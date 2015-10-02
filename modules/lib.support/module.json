@@ -1,0 +1,13 @@
+{
+	"before": [
+		"core.lib"
+	],
+	"deps_npm": [],
+	"main": "index.js",
+	"deps": [
+		"core.namespace"
+	],
+	"desc": "Вспомогательная библиотека, содержащая основные интерфейсы",
+	"deps_files": [],
+	"name": "lib.support"
+}
