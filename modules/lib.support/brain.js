@@ -15,8 +15,8 @@ class Brain {
 	/**
 	 * Функция-обработчик.
 	 */
-	handler (event, callback) {
-		throws(new NotImplementedError, callback);
+	handler (event) {
+		throws(new NotImplementedError);
 	}
 }
 
