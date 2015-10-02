@@ -1,0 +1,13 @@
+{
+	"deps": [
+		"core.namespace"
+	],
+	"before": [
+		"core.core"
+	],
+	"main": "index.js",
+	"desc": "База для memory.*",
+	"deps_files": [],
+	"deps_npm": [],
+	"name": "core.memory"
+}
