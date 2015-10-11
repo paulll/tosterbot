@@ -1,38 +1,62 @@
-api.io.on('session', function (session) {
+"use strict";
 
-	console.log('Открыта сессия:', session);
+var Brain = api.support.Brain,
+	handleError = api.debug.handleError,
+	log = api.debug.log,
+	level = api.debug.level,
+	reduce = api.lib.iterate.reduce;
 
-	session.on('message', function (message) {
+class TalkController extends Brain {
+	handler (message) {
 
-		console.log('Получено сообщение:', message.toString().trim());
-
-		api.lang.parse(message, function (error, parsed) {
-
-			if (error) {
-				console.error(error);
-			}
-
-			console.log('brain.talk/index.js:15', parsed, api.action.exists(parsed.action));
-
-			if (typeof parsed.action !== 'undefined') {
-				if (api.action.exists(parsed.action)) {
-					api.action.run(parsed.action, parsed, function (error) {
-						
-					});
-				} else {
-					session.send(new Message('[w] Пока не умею выполнять это действие', session));
+		/**
+		 * Прогоняем сообщение по всем парсерам.
+		 * результат с наибольшим confidence будет
+		 * считаться окончательным.
+		 */
+		reduce(api.lang.parsers.entries(), {confidence: 0}, function (current, parser, callback) {
+			parser.parse(message, function (error, probablyParsedMessage) {
+				if (handleError(error, level.warn)) {
+					if (current.confidence > probablyParsedMessage.confidence) {
+						callback(error, current);
+					} else {
+						callback(error, probablyParsedMessage);	
+					}
 				}
-				//api.log('warn', 'Пока не умею выполнять действия').
-			}
-
-			api.lang.generate(parsed, function (error, generated) {
-
-				if (error) {
-					console.error(error);
-				}
-
-				session.send(generated.text);
 			});
+		}, function (error, parsedMessage) {
+			if (handleError(error, level.warn)) {
+				if (typeof parsedMessage.action !== 'undefined') {
+					if (!api.do(parsedMessage.action, parsedMessage, handleError)) {
+							let reply = `Не умею выполнять это действие (${parsedMessage.action})`;
+							log(reply, level.warn);
+							message.session.send(reply)
+						}
+					}
+				}
+				/**
+				 * Прогоняем сообщение по всем генераторам.
+				 * результат с наибольшим confidence будет
+				 * считаться окончательным.
+				 */
+				reduce(api.lang.generators.entries(), {confidence: 0}, function (current, generator, callback) {
+					generator.generate(parsedMessage, function (error, probablyGeneratedMessage) {
+						if (handleError(error, level.warn)) {
+							if (current.confidence > probablyGeneratedMessage.confidence) {
+								callback(error, current);
+							} else {
+								callback(error, probablyGeneratedMessage);
+							}
+						}
+					});
+				}, function (error, resultMessage) {
+					if (handleError(error, level.warn) {
+						message.session.send(resultMessage);
+					};
+				});
+			}
 		});
-	});
-});
+	}
+}
+
+new TalkController('io.message');

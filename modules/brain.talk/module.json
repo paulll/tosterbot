@@ -4,7 +4,9 @@
 	"desc": "Определяет, что делать с поступающей и ответной информацией.",
 	"deps": [
 		"core.namespace",
-		"core.lang"
+		"core.lang",
+		"lib.iterate",
+		"lib.support"
 	],
 	"deps_npm": [],
 	"deps_files": [],
