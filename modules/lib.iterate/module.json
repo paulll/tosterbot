@@ -1,0 +1,13 @@
+{
+	"desc": "Асинхронный обход итерируемого объекта",
+	"name": "lib.iterate",
+	"deps_npm": [],
+	"deps": [
+		"core.namespace"
+	],
+	"deps_files": [],
+	"main": "index.js",
+	"before": [
+		"core.lib"
+	]
+}
