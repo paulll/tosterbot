@@ -1,8 +1,7 @@
 "use strict";
 
 var throws = api.debug.throws,
-	NotImplementedError = api.debug.errors.NotImplementedError,
-	actions = new Map();
+	NotImplementedError = api.debug.errors.NotImplementedError;
 
 /**
  * Действие.
