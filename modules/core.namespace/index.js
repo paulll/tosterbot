@@ -1,19 +1,40 @@
 var EventEmitter = require('events').EventEmitter;
-
 global.api = new EventEmitter;
-global.api.notify = {};
-global.api.action = {};
-global.api.lib = {};
-global.api.sense = {};
-global.api.lang = {};
-global.api.core = {};
-global.api.data = {};
-global.api.security = {};
-global.api.memory = {};
-global.api.parser = {};
 
-global.api.io = new EventEmitter;
-global.api.io.providers = new Set;
-global.api.io.sessions = new Set;
+api.notify = {};
+api.action = {};
+api.lib = {};
+api.sense = {};
+api.core = {};
+api.data = {};
+api.security = {};
+api.memory = {};
+api.parser = {};
+
+api.io = new EventEmitter;
+api.io.providers = new Set;
+api.io.sessions = new Set;
+
+api.lang = {};
+api.lang.generators = new Set;
+api.lang.parsers = new Set;
+
+api.actions = new Set;
+
+/**
+ * Выполнить действие с заданным ID.
+ */
+api.do = function (aid, params, callback) {
+	return api.actions[aid](params, callback);
+};
+
+/**
+ * Зарегистрировать действие.
+ */
+api.registerAction = function (action, callback) {
+	if (assert.type(action, Action, callback)) {
+		api.actions[action.name] = action;
+	}
+};
 
 api.bus = new EventEmitter;
