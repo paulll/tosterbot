@@ -5,7 +5,8 @@
 	"deps_npm": [],
 	"main": "index.js",
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"lib.debug"
 	],
 	"desc": "Вспомогательная библиотека, содержащая основные интерфейсы",
 	"deps_files": [],

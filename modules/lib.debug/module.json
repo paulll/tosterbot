@@ -1,0 +1,18 @@
+{
+	"deps": [
+		"core.namespace"
+	],
+	"desc": "Обработка исключений и дебаг",
+	"name": "lib.debug",
+	"main": "index.js",
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"deps_npm": [
+		{
+			"name": "colors",
+			"shared": true
+		}
+	]
+}

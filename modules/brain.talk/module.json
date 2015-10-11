@@ -6,7 +6,8 @@
 		"core.namespace",
 		"core.lang",
 		"lib.iterate",
-		"lib.support"
+		"lib.support",
+		"lib.debug"
 	],
 	"deps_npm": [],
 	"deps_files": [],
