@@ -2,7 +2,8 @@
 	"name": "lib.vkontakte",
 	"main": "index.js",
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"memory.settings"
 	],
 	"deps_npm": [],
 	"deps_files": [],

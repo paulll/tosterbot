@@ -9,7 +9,7 @@ api.lib.vkontakte = new EventEmitter;
 api.lib.vkontakte.request = function (method, params, callback) {
 	var retry = setTimeout.bind(null, api.lib.vkontakte.request.bind(null, method, params, callback), 1000);
 
-	params.access_token = params.access_token || 'a3a7def6c1b561149b9dca9f54dc6728ca34bbe0d504a81cea0086c53eff71e75d9d982c93bfe86eec137';
+	params.access_token = params.access_token || api.settings.security.VkontakteToken;
 
 	var request = https.request({
 		hostname: 'api.vk.com',
