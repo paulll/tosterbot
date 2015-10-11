@@ -2,6 +2,12 @@
 	"deps": [
 		"core.namespace"
 	],
+	"deps_npm": [
+		{
+			"name": "merge",
+			"shared": true
+		}
+	],
 	"deps_files": [],
 	"before": [
 		"core.memory"

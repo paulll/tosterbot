@@ -2,43 +2,56 @@ var https = require('https'),
 	http = require('http'),
 	querystring = require('querystring'),
 	url = require('url'),
-	EventEmitter = require('events').EventEmitter;
+	EventEmitter = require('events').EventEmitter,
+	handleError = api.debug.handleError,
+	level = api.debug.level,
+	reduce = api.lib.iterate.reduce;
 
 api.lib.vkontakte = new EventEmitter;
 
 api.lib.vkontakte.request = function (method, params, callback) {
 	var retry = setTimeout.bind(null, api.lib.vkontakte.request.bind(null, method, params, callback), 1000);
 
-	params.access_token = params.access_token || api.settings.security.VkontakteToken;
-
-	var request = https.request({
-		hostname: 'api.vk.com',
-		port: 443,
-		path: '/method/' + method + '?' + querystring.stringify(params),
-		method: 'GET'
-	}, function (response) {
-
-		var data = '';
-		
-		response.on('data', function (chunk) {
-			data += chunk;
-		});
-
-		response.on('end', function () {
-
-			if (!data) {
-				return retry();
+	reduce(api.memory.providers, params.access_token, function (current, provider, rcallback) {
+		provider.get('security.VkontakteToken', null, null, function (error, result) {
+			if(handleError(error, level.warn, rcallback)) {
+				rcallback(error, result ? result : current);
 			}
-
-			callback(null, JSON.parse(data));
 		});
+	}, function (error, result) {
+		if(handleError(error, level.warn)) {
+			params.access_token = result.object;
 
-		response.on('error', retry);
+			var request = https.request({
+				hostname: 'api.vk.com',
+				port: 443,
+				path: '/method/' + method + '?' + querystring.stringify(params),
+				method: 'GET'
+			}, function (response) {
+
+				var data = '';
+				
+				response.on('data', function (chunk) {
+					data += chunk;
+				});
+
+				response.on('end', function () {
+
+					if (!data) {
+						return retry();
+					}
+
+					callback(null, JSON.parse(data));
+				});
+
+				response.on('error', retry);
+			});
+
+			request.setTimeout(1000, retry);
+			request.on('error', retry);
+			request.end();
+		}
 	});
-
-	request.setTimeout(1000, retry);
-	request.on('error', retry);
-	request.end();
 };
 
 

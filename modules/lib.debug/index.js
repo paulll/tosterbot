@@ -23,9 +23,13 @@ const debug_prefix	=	'[DEBUG] '.gray;
 
 api.debug = {};
 
-api.debug.handleError = function (error, level) {
-	if (!level) {
+api.debug.handleError = function (error, level, callback) {
+	if (!level || typeof level !== 'object') {
 		level = api.debug.level.error;
+
+		if (typeof level === 'function') {
+			callback = level;
+		}
 	}
 
 	if (error) {
@@ -46,6 +50,9 @@ api.debug.handleError = function (error, level) {
 			case api.debug.level.debug:
 				console.log(debug_prefix, error);
 				break;
+		}
+		if (callback) {
+			callback(error)
 		}
 		return false;
 	} else {
@@ -117,5 +124,6 @@ api.debug.throws = function (error, callback) {
 }
 
 api.debug.errors = {
-	NotImplementedError: class NotImplementedError extends Error {}
+	NotImplementedError: class NotImplementedError extends Error {},
+	NotFoundError: class NotFoundError extends Error {}
 }

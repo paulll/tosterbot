@@ -8,7 +8,10 @@ api.sense = {};
 api.core = {};
 api.data = {};
 api.security = {};
+
 api.memory = {};
+api.memory.providers = new Set;
+
 api.parser = {};
 
 api.io = new EventEmitter;
