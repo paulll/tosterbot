@@ -1,9 +1,6 @@
 var https = require('https'),
 	VKSession = require('./session.js');
 
-require('es6-shim');
-
-
 api.lib.vkontakte.on('message', function (message) {
 	// сессии делятся либо по 24 часам либо по 30 минут и приветствию
 	

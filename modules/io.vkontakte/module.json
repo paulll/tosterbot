@@ -1,13 +1,7 @@
 {
 	"deps_files": [],
 	"desc": "Интерфейс общения через вк",
-	"deps_npm": [
-		{
-			"name": "es6-shim",
-			"shared": true,
-			"min-version": "0.0.0"
-		}
-	],
+	"deps_npm": [],
 	"before": [
 		"core.io"
 	],
