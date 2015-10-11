@@ -16,4 +16,4 @@ global.api.io = new EventEmitter;
 global.api.io.providers = new Set;
 global.api.io.sessions = new Set;
 
-global.api.bus = new EventEmitter;
+api.bus = new EventEmitter;

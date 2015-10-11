@@ -2,7 +2,6 @@
 	"deps": [
 		"core.namespace"
 	],
-	"deps_npm": [],
 	"deps_files": [],
 	"before": [
 		"core.memory"
