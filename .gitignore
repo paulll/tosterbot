@@ -1,0 +1,5 @@
+node_modules
+modules/io.speech.pocketgoogle/pocket
+*.log
+example_lparser.js
+json2folder.js
