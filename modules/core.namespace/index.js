@@ -35,10 +35,10 @@ api.do = function (aid, params, callback) {
 /**
  * Зарегистрировать действие.
  */
-api.registerAction = function (action, callback) {
-	if (assert.type(action, Action, callback)) {
+api.registerAction = function (action) {
+	//if (assert.type(action, Action, callback)) {
 		api.actions[action.name] = action;
-	}
+	//}
 };
 
 api.bus = new EventEmitter;
