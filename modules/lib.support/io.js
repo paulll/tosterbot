@@ -89,11 +89,6 @@ class Session extends EventEmitter {
  */
 class IoProvider extends EventEmitter { 
 	
-	constructor () {
-		super();
-		api.io.providers.add(this);
-	}
-
 	/**
 	 * Привязывает сессию к этому провайдеру,
 	 * а так же создает событие новой сессии.
