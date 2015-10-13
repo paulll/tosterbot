@@ -102,12 +102,21 @@ api.debug.error = function (message) {
 }
 
 api.debug.level = {
+	// Фатальное исключение, угроза работы системы
 	fatal: {},
+
+	// Непредвиденное поведение, но не критично
 	error: {},
+
+	// Незначительная ошибка, которая ровным счетом ни на что не влияет
 	warn: {},
 	warning: {},
-	info: {},
-	debug: {}
+
+	// Отладочная информация
+	debug: {},
+
+	// Важная информация
+	info: {}
 };
 
 api.debug.throws = function (error, callback) {
