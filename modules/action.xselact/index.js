@@ -53,3 +53,5 @@ class XselAction extends Action {
 		});
 	}
 }
+
+api.registerAction(new XselAction);
