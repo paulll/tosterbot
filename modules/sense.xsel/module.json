@@ -2,7 +2,8 @@
 	"name": "sense.xsel",
 	"main": "index.js",
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"lib.support"
 	],
 	"deps_npm": [],
 	"deps_files": [

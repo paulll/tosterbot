@@ -4,10 +4,11 @@ global.api = new EventEmitter;
 api.notify = {};
 api.action = {};
 api.lib = {};
-api.sense = {};
 api.core = {};
 api.data = {};
 api.security = {};
+
+api.sense = new Map;
 
 api.memory = {};
 api.memory.providers = new Set;
