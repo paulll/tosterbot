@@ -7,7 +7,8 @@
 		"lib.convert",
 		"notify.xsel",
 		"sense.xsel",
-		"lib.dict"
+		"lib.dict",
+		"lib.debug"
 	],
 	"deps_npm": [],
 	"deps_files": [],
