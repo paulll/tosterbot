@@ -7,10 +7,9 @@ var throws = api.debug.throws,
  * Действие.
  */
 class Sense {
-	readState () {
+	readState (params, callback) {
 		throws(new NotImplementedError);
 	}
 }
 
-api.support.Action = Action;
-api.actions = actions;
+api.support.Sense = Sense;
