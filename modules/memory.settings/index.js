@@ -6,7 +6,7 @@ var fs = require('fs'),
 	settings = JSON.parse(settingsJson),
 	MemoryProvider = api.lib.support.MemoryProvider,
 	Triplet = api.lib.support.Triplet,
-	NotFoundError = api.debug.errors.NotFoundError;
+	NotFoundError = api.lib.debug.errors.NotFoundError;
 
 // Читает и парсит json-файлы
 function include (files) {

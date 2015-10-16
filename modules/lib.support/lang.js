@@ -1,7 +1,7 @@
 "use strict";
 
-var throws = api.debug.throws,
-	NotImplementedError = api.debug.errors.NotImplementedError;
+var throws = api.lib.debug.throws,
+	NotImplementedError = api.lib.debug.errors.NotImplementedError;
 
 /**
  * Класс обработчика сообщений.

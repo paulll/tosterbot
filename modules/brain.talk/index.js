@@ -1,9 +1,9 @@
 "use strict";
 
 var Brain = api.support.Brain,
-	handleError = api.debug.handleError,
-	log = api.debug.log,
-	level = api.debug.level,
+	handleError = api.lib.debug.handleError,
+	log = api.lib.debug.log,
+	level = api.lib.debug.level,
 	reduce = api.lib.iterate.reduce;
 
 class TalkController extends Brain {

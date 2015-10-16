@@ -3,8 +3,8 @@ var https = require('https'),
 	querystring = require('querystring'),
 	url = require('url'),
 	EventEmitter = require('events').EventEmitter,
-	handleError = api.debug.handleError,
-	level = api.debug.level,
+	handleError = api.lib.debug.handleError,
+	level = api.lib.debug.level,
 	reduce = api.lib.iterate.reduce;
 
 class VKClient  extends EventEmitter {

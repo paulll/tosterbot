@@ -1,8 +1,8 @@
 "use strict";
 
 var simplify = api.lib.simplify,
-	handleError = api.debug.handleError,
-	level = api.debug.level;
+	handleError = api.lib.debug.handleError,
+	level = api.lib.debug.level;
 
 
 class XselAction extends Action {
