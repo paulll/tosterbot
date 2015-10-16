@@ -19,7 +19,7 @@ class Message {
 	/**
 	 * Возвращает строковое представление сообщения.
 	 */
-	get string () {
+	get text () {
 		return throws(new NotImplementedError);
 	}
 }
@@ -74,6 +74,13 @@ class Session extends EventEmitter {
 		api.io.emit('message', message);
 		api.bus.emit('io.message', message);
 	}
+
+	/**
+	 * Отправляет сообщение
+	 */
+	send (message, callback) {
+		return throws(new NotImplementedError, callback); 
+	};
 
 	/**
 	 * @todo: (secure.*, memory.*)
