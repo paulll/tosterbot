@@ -6,4 +6,5 @@ require('./io');
 require('./lang');
 require('./memory');
 require('./notifications');
+require('./sense')
 require('./triplets');
