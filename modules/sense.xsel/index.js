@@ -1,3 +1,5 @@
+"use strict";
+
 var exec = require('child_process').exec,
 	Sense = api.lib.support.Sense;
 
