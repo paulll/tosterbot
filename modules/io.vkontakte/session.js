@@ -1,22 +1,22 @@
 var EventEmitter = require('events').EventEmitter,
-	util = require('util');
+	Session = api.lib.support.Session;
 
-function VKSession(user_id, timestamp) {
-	this.user_id = user_id;
-	this.timestamp = timestamp;
-};
+class VKSession extends Session {
+	constructor (provider, client, user_id, timestamp) {
+		super(provider);
 
-util.inherits(VKSession, EventEmitter);
+		this.client = client;
+		this.user_id = user_id;
+		this.timestamp = timestamp;
+	}
 
-
-VKSession.prototype.send = function (message, callback) {
-	api.lib.vkontakte.request('messages.send', {
-		user_id: this.user_id,
-		guid: Math.random() * 1e17,
-		message: (message||'d').toString()
-	}, console.log.bind(console));
-};
-
-
+	send (message, callback) {
+		this.client.request('messages.send', {
+			user_id: this.user_id,
+			guid: Math.random() * 1e17,
+			message: (message||'d').toString()
+		}, callback);
+	};
+}
 
 module.exports = VKSession;
