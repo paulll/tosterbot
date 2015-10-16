@@ -19,4 +19,4 @@ class Action {
 	}
 }
 
-api.support.Action = Action;
+api.lib.support.Action = Action;

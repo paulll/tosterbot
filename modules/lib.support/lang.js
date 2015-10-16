@@ -25,5 +25,5 @@ class MessageGenerator {
 	}
 }
 
-api.support.MessageParser = MessageParser;
-api.support.MessageGenerator = MessageGenerator;
+api.lib.support.MessageParser = MessageParser;
+api.lib.support.MessageGenerator = MessageGenerator;

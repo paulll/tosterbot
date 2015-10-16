@@ -29,5 +29,5 @@ class Notification {
 	}
 }
 
-api.support.Notification = Notification;
-api.support.NotificationProvider = NotificationProvider;
+api.lib.support.Notification = Notification;
+api.lib.support.NotificationProvider = NotificationProvider;

@@ -1,4 +1,4 @@
-api.support = {};
+api.lib.support = {};
 
 require('./actions');
 require('./brain');

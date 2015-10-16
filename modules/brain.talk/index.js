@@ -1,6 +1,6 @@
 "use strict";
 
-var Brain = api.support.Brain,
+var Brain = api.lib.support.Brain,
 	handleError = api.lib.debug.handleError,
 	log = api.lib.debug.log,
 	level = api.lib.debug.level,

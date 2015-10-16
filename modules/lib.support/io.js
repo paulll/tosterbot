@@ -108,8 +108,8 @@ class IoProvider extends EventEmitter {
 	}
 }
 
-api.support.Message = Message;
-api.support.RequestMessage = RequestMessage;
-api.support.ResponseMessage = ResponseMessage;
-api.support.Session = Session;
-api.support.IoProvider = IoProvider;
+api.lib.support.Message = Message;
+api.lib.support.RequestMessage = RequestMessage;
+api.lib.support.ResponseMessage = ResponseMessage;
+api.lib.support.Session = Session;
+api.lib.support.IoProvider = IoProvider;

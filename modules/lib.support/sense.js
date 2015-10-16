@@ -12,4 +12,4 @@ class Sense {
 	}
 }
 
-api.support.Sense = Sense;
+api.lib.support.Sense = Sense;

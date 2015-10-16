@@ -20,4 +20,4 @@ class Triplet {
 	}
 }
 
-api.support.Triplet = Triplet;
+api.lib.support.Triplet = Triplet;

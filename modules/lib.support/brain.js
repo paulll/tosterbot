@@ -20,4 +20,4 @@ class Brain {
 	}
 }
 
-api.support.Brain = Brain;
+api.lib.support.Brain = Brain;

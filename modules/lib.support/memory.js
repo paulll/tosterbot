@@ -13,4 +13,4 @@ class MemoryProvider {
 	}
 }
 
-api.support.MemoryProvider = MemoryProvider;
+api.lib.support.MemoryProvider = MemoryProvider;
