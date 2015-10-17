@@ -1,60 +1,43 @@
-var net = require('net'),
-	EventEmitter = require('events').EventEmitter;
+var TcpSession = require('./session.js'),
+	net = require('net'),
+	IoProvider = api.lib.support.IoProvider,
+	RequestMessage = api.lib.support.RequestMessage,
+	getSimple = api.memory.getSimple;
 
-var server = net.createServer(function(socket) {
-	socket.setEncoding('utf8');
-	socket.write('Connection initialized.\n');
 
-	/**
-	 * Session is instance of EventEmitter
-	 */
-	var session = new EventEmitter;
+class TcpIoProvider extends IoProvider {
+	constructor () {
 
-	/**
-	 * implement Session.send
-	 */
-	session.send = function (message, callback) {
-		if (!callback) {callback = function(){};}
-		try {
-			socket.write(message + "\n> ");
-			callback();
-		} catch (error) {
-			callback(error);
-		}
-	};
-	
-	/**
-	 *  Proxy incoming messages
-	 */
-	socket.on('data', function (message) {
-		session.emit('message', new Message(message.toString(), session));
-	});
+		var self = this;
+		
+		var server = net.createServer(function (socket) {
+			var session = new TcpSession(TcpIoProvider, socket);
 
-	/**
-	 *  Handle socket ending
-	 */
-	socket.on('close', function () {
-		session.emit('close');
-	});
+			socket.setEncoding('utf8');
 
-	/**
-	 *  Handle session ending
-	 */
-	session.on('close', function () {
-		var index = api.io.sessions.indexOf(session);
-		if (index !== -1) {
-			api.io.sessions.splice(index, 1);
-		}
-		if (socket.writable) {
-			socket.close();
-		}
-	});
+			// @todo: motd --> приветствие 
+			getSimple('TcpMotd', function (error, result) {
+				if (handleError(error, level.warn)) {
+					socket.write(result);
+				}
+				socket.write('> ');
+			});
 
-	/**
-	 * Activate the session
-	 */
-	api.io.sessions.push(session);
-	api.io.emit('session', session);
-});
+			socket.on('close', function () {
+				session.close();
+			});
 
-server.listen(1337);
+			socket.on('message', function (message) {
+				session.appendMessage(new RequestMessage(message));
+			});
+		});
+
+		getSimple('TcpChatPort', function (error, result) {
+			if (handleError(error, level.warn)) {
+				server.listen(parseInt(port, 10));
+			}
+		});
+	}
+}
+
+api.io.providers.add(new VkIoProvider);
