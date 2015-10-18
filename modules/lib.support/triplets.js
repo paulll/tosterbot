@@ -9,15 +9,9 @@ var throws = api.lib.debug.throws,
  * вершинами графа базы знаний Системы.
  */
 class Triplet {
-	get subject() {
-		throws(new NotImplementedError);
-	}
-	get predicate() {
-		throws(new NotImplementedError);
-	}
-	get object() {
-		throws(new NotImplementedError);
-	}
+	// subject
+	// object
+	// predicate
 }
 
 api.lib.support.Triplet = Triplet;

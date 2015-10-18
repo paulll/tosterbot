@@ -2,6 +2,7 @@
 
 var throws = api.lib.debug.throws,
 	NotImplementedError = api.lib.debug.errors.NotImplementedError,
+	SocketClosedError = api.lib.debug.errors.SocketClosedError,
 	EventEmitter = require('events').EventEmitter;
 
 /**
@@ -12,16 +13,12 @@ class Message {
 	/**
 	 * Устанавливается при вызове Session.appendMessage(Message)
 	 */
-	get session () {
-		return throws(new NotImplementedError);
-	}
+	// session
 
 	/**
 	 * Возвращает строковое представление сообщения.
 	 */
-	get text () {
-		return throws(new NotImplementedError);
-	}
+	// text
 }
 
 /**
@@ -61,6 +58,7 @@ class Session extends EventEmitter {
 		super();
 		this.provider = provider;
 		this.history = [];
+		this.closed = false;
 	}
 
 	/**
@@ -68,6 +66,11 @@ class Session extends EventEmitter {
 	 * а так же создает событие нового сообщения
 	 */
 	appendMessage(message) {
+
+		if (this.closed) {
+			return throws(new SocketClosedError);
+		}
+
 		message.session = this;
 		this.history.push(message);
 		this.emit('message', message);
@@ -81,6 +84,13 @@ class Session extends EventEmitter {
 	send (message, callback) {
 		return throws(new NotImplementedError, callback); 
 	};
+
+	/**
+	 * Закрывает сессию, запрещает отправку
+	 */
+	close () {
+		this.closed = true;
+	}
 
 	/**
 	 * @todo: (secure.*, memory.*)

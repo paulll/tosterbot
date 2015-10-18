@@ -24,9 +24,7 @@ class Notification {
 	/**
 	 * Возвращает строковое представление уведомления.
 	 */
-	get string () {
-		throws(new NotImplementedError);
-	}
+	// text
 }
 
 api.lib.support.Notification = Notification;

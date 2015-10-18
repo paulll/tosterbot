@@ -7,9 +7,8 @@ var throws = api.lib.debug.throws,
  * Действие.
  */
 class Action {
-	get name() {
-		throws(new NotImplementedError);
-	}
+	
+	// name
 
 	/**
 	 * Функция действия (асинхронна).
