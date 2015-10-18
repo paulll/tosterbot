@@ -1,3 +1,5 @@
+"use strict";
+
 api.lib.iterate = {};
 
 api.lib.iterate.reduce = function reduce (iter, ac, fn, cb) {
