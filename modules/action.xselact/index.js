@@ -2,8 +2,8 @@
 
 var simplify = api.lib.simplify,
 	handleError = api.lib.debug.handleError,
-	level = api.lib.debug.level;
-
+	level = api.lib.debug.level,
+	Action = api.lib.support.Action;
 
 class XselAction extends Action {
 	
@@ -19,7 +19,7 @@ class XselAction extends Action {
 	}
 
 	do (params, callback) {
-		api.sense.xselact.readState({}, function (error, state) {
+		api.sense.get('xsel').readState({}, function (error, state) {
 			if(handleError(error, level.error)){
 				params.in = params.in || params.param.in;
 				params.out = params.in;
@@ -44,11 +44,9 @@ class XselAction extends Action {
 					}
 				}
 				
-				let result = api.lib.convert(buffer, params.in, params.out);
+				let result = api.lib.convert(state, params.in, params.out);
 
-				api.notify.xsel.notify(result, callback(function (error) {
-					handleError(error, level.error);
-				}));
+				api.notify.xsel.notify(result);
 			}
 		});
 	}

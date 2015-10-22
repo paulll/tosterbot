@@ -4,7 +4,8 @@ var Brain = api.lib.support.Brain,
 	handleError = api.lib.debug.handleError,
 	log = api.lib.debug.log,
 	level = api.lib.debug.level,
-	reduce = api.lib.iterate.reduce;
+	reduce = api.lib.iterate.reduce,
+	ResponseMessage = api.lib.support.ResponseMessage;
 
 class TalkController extends Brain {
 	handler (message) {
@@ -14,8 +15,11 @@ class TalkController extends Brain {
 		 * результат с наибольшим confidence будет
 		 * считаться окончательным.
 		 */
-		reduce(api.lang.parsers.entries(), {confidence: 0}, function (current, parser, callback) {
+		reduce(api.lang.parsers.values(), {confidence: 0}, function (current, parser, callback) {
 			parser.parse(message, function (error, probablyParsedMessage) {
+
+				console.log(probablyParsedMessage);
+
 				if (handleError(error, level.warn, callback)) {
 					if (current.confidence > probablyParsedMessage.confidence) {
 						callback(error, current);
@@ -25,13 +29,15 @@ class TalkController extends Brain {
 				}
 			});
 		}, function (error, parsedMessage) {
+
+			console.log(parsedMessage);
+
 			if (handleError(error, level.warn)) {
 				if (typeof parsedMessage.action !== 'undefined') {
 					if (!api.do(parsedMessage.action, parsedMessage, handleError)) {
-							let reply = `Не умею выполнять это действие (${parsedMessage.action})`;
-							log(reply, level.warn);
-							message.session.send(reply)
-						}
+						let reply = `Не умею выполнять это действие (${parsedMessage.action})`;
+						log(reply, level.warn);
+						message.session.send(new ResponseMessage(reply));
 					}
 				}
 				/**
@@ -50,8 +56,10 @@ class TalkController extends Brain {
 						}
 					});
 				}, function (error, resultMessage) {
-					if (handleError(error, level.warn) {
-						message.session.send(resultMessage);
+					if (handleError(error, level.warn)) {
+						if (message.confidence) {
+							message.session.send(resultMessage);
+						}
 					};
 				});
 			}
@@ -59,4 +67,4 @@ class TalkController extends Brain {
 	}
 }
 
-new TalkController('io.message');
+new TalkController('io.message.in');

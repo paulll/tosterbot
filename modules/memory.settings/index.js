@@ -46,6 +46,22 @@ function getItem(root, string) {
 	}
 }
 
+function injrec (root, rest, value) {
+	let element = rest.shift(),
+		newroot = root[element];
+
+	if (rest.length) {
+		if (newroot) {
+			return injrec(newroot, rest, value);
+		} else {
+			root[element] = {};
+			return injrec(root[element], rest, value);
+		}
+	} else {
+		return root[element] = value;
+	}
+}
+
 class SettingsTriplet extends Triplet {
 	constructor (subject, object) {
 		super();
@@ -59,11 +75,25 @@ class SettingsProvider extends MemoryProvider {
 	get (subject, predicate, object, callback) {
 		let item = getItem(settings, subject);
 		if (item) {
-			callback(null, new SettingsTriplet(subject, object));
+			callback(null, new SettingsTriplet(subject, item));
 		} else {
 			callback(new NotFoundError);
 		}
 	}
+
+	reload () {
+		settings = {};
+		recursiveImports(settings);
+	}
+
+	inject (parameter, value) {
+		return injrec(settings, parameter.split('.'), value);
+	}
+
 }
 
-api.memory.providers.add(new SettingsProvider);
+let settingProvider = new SettingsProvider;
+api.memory.providers.add(settingProvider);
+api.memory.settingProvider = settingProvider;
+api.memory.settingProvider._getItem = getItem;
+api.memory.settingProvider._injrec = injrec;

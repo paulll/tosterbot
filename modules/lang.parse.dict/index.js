@@ -1,18 +1,29 @@
-api.lang.parsers.dict = {};
-api.lang.parsers.dict.parse = function (message, callback) {
-	
-	var answer = api.lib.dict.parse(message.toString().trim());
+"use strict";
 
-	if (!answer) {
-		callback(null, {confidence: 0});
-	} else {
-		answer.confidence = answer.confidence || 1;
-		callback(null, answer);
-	}
-};
+var MessageParser = api.lib.support.MessageParser,
+	parse = api.lib.dict.parse;
 
-api.lib.dict.loadRules('./dict/ru/input/base.dict', function(error) {
-	if (error) {
-		console.log('[FAIL]', 'Should load base.dict');
+class DictParser extends MessageParser {
+
+	constructor() {
+		super();
+		api.lib.dict.loadRules('./dict/ru/input/base.dict', function(error) {
+			if (error) {
+				console.log('[FAIL]', 'Should load base.dict');
+			}
+		});
 	}
-});
+
+	parse (message, callback) {
+		var answer = parse(message.text.trim());
+
+		if (!answer) {
+			callback(null, {confidence: 0});
+		} else {
+			answer.confidence = answer.confidence || 1;
+			callback(null, answer);
+		}
+	}
+}
+
+api.lang.parsers.add(new DictParser);

@@ -44,6 +44,9 @@ api.lib.dict.loadDict = function (file, callback) {
 
 
 api.lib.dict.parse = function (string) {
+
+	console.log(string);
+
 	var simple = api.lib.simplify(string);
 	for (let rule of api.lib.dict.rules) {
 		let tokens;

@@ -17,4 +17,4 @@ class XselSense extends Sense {
 	}
 }
 
-api.sense.xsel = new XselSense;
+api.sense.set('xsel', new XselSense);

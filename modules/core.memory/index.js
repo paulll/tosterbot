@@ -1,8 +1,12 @@
-var reduce = api.lib.iterate.reduce;
+var reduce = api.lib.iterate.reduce,
+	handleError = api.lib.debug.handleError,
+	level = api.lib.debug.level;
 
-api.memory.getSimple = function (predicate, callback) {
-	reduce(api.memory.providers, function (current, provider, rcallback) {
-		provider.get(predicate, null, null, function (error, result) {
+var $ = console.log.bind(console);
+
+api.memory.getSimple = function (subject, callback) {
+	reduce(api.memory.providers.values(), null, function (current, provider, rcallback) {
+		provider.get(subject, null, null, function (error, result) {
 			if(handleError(error, level.warn, rcallback)) {
 				rcallback(error, result ? result : current);
 			}

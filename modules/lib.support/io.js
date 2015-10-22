@@ -27,8 +27,8 @@ class Message {
 class RequestMessage extends Message {
 	constructor (text) {
 		super();
-		this.string = text;
-	}	
+		this.text = text;
+	}
 }
 
 /**
@@ -37,12 +37,9 @@ class RequestMessage extends Message {
  * сообщений не специфицированы.
  */
 class ResponseMessage extends Message {
-	constructor () {
+	constructor (text) {
 		super();
-		// Бросает ошибку, если конструктор не определён.
-		if (Object.getPrototypeOf(this) === ResponseMessage.prototype) {
-			return throws(new NotImplementedError); 
-		}
+		this.text = text;
 	}
 }
 
@@ -73,9 +70,16 @@ class Session extends EventEmitter {
 
 		message.session = this;
 		this.history.push(message);
-		this.emit('message', message);
-		api.io.emit('message', message);
-		api.bus.emit('io.message', message);
+
+		if (message instanceof RequestMessage) {
+			this.emit('message.in');
+			api.io.emit('message.in');
+			api.bus.emit('io.message.in', message);
+		} else {
+			this.emit('message.out');
+			api.io.emit('message.out');
+			api.bus.emit('io.message.out', message);
+		}
 	}
 
 	/**
@@ -114,7 +118,7 @@ class IoProvider extends EventEmitter {
 		api.io.sessions.add(session);
 		this.emit('session', session);
 		api.io.emit('session', session);
-		api.bus.emit('io.session', message);
+		api.bus.emit('io.session', session);
 	}
 }
 

@@ -28,6 +28,10 @@ api.lib.debug.handleError = function (error, level, callback) {
 	}
 
 	if (error) {
+
+		console.trace();
+		throw error;
+
 		switch(level) {
 			case api.lib.debug.level.fatal:
 				throw error;

@@ -1,24 +1,25 @@
+"use strict";
+
 var VKSession = require('./session.js'),
 	IoProvider = api.lib.support.IoProvider,
 	RequestMessage = api.lib.support.RequestMessage,
-	VKClient = api.lib.vkontakte.VKClient;
+	VKClient = api.lib.vkontakte.VKClient,
+	getSimple = api.memory.getSimple,
+	handleError = api.lib.debug.handleError,
+	level = api.lib.debug.level;
 
 
 class VkIoProvider extends IoProvider {
 	constructor () {
 
+		super();
+
 		var self = this,
 			sessionsCache = new WeakMap();
 
-		reduce(api.memory.providers, function (current, provider, rcallback) {
-			provider.get('security.VkontakteToken', null, null, function (error, result) {
-				if(handleError(error, level.warn, rcallback)) {
-					rcallback(error, result ? result : current);
-				}
-			});
-		}, function (error, result) {
+		getSimple('security.VkontakteToken', function (error, result) {
 			if (handleError(error, level.warn)) {
-				self.client = new VKClient(result.object);
+				self.client = new VKClient(result);
 				self.client.connect();
 				self.client.on('message', function (message) {
 					
@@ -26,7 +27,9 @@ class VkIoProvider extends IoProvider {
 					messageObject.attachments = message.attachments;
 
 					if (!sessionsCache.has(message.from)) {
-						sessionsCache[message.from] = new VKSession(self, self.client, message.from, message.time);
+						let sessionObject = new VKSession(self, self.client, message.from, message.time);
+						sessionsCache[message.from] = sessionObject;
+						self.appendSession(sessionObject);
 					}
 
 					sessionsCache[message.from].appendMessage(messageObject);
@@ -35,3 +38,5 @@ class VkIoProvider extends IoProvider {
 		});
 	}
 }
+
+api.io.providers.add(new VkIoProvider);

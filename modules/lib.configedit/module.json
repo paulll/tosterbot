@@ -1,0 +1,13 @@
+{
+	"deps_npm": [],
+	"name": "lib.configedit",
+	"desc": "Модуль для поддержки изменения текущих настроек \"на лету\"",
+	"before": [
+		"core.lib"
+	],
+	"main": "index.js",
+	"deps_files": [],
+	"deps": [
+		"core.memory"
+	]
+}

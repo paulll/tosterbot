@@ -2,17 +2,17 @@
 
 api.lib.iterate = {};
 
-api.lib.iterate.reduce = function reduce (iter, ac, fn, cb) {
-	let item = iter.next();
+api.lib.iterate.reduce = function reduce (iterator, accumulator, funct, callback) {
+	let item = iterator.next();
 	if (item.done) {
-		return cb(null, ac);
+		return callback(null, accumulator);
 	}
-	fn (ac, item.value, function (error, data) {
+	funct (accumulator, item.value, function (error, data) {
 		if (error) {
 			return cb(error);
 		}
 		setTimeout(function() {
-			reduce(iter, data, fn, cb);
+			reduce(iterator, data, funct, callback);
 		}, 0);
 	});
 };

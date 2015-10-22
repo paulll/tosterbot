@@ -3,5 +3,17 @@
 		"@include": [
 			"/home/paulll/secure/tosterbot.tokens"
 		]
-	}
+	},
+	"TcpChatPort": 1337,
+
+	"recognition": {
+		"keyphrase": "картошка",
+		"threshold": "1e-40"
+	},
+
+	"rootDirectory": "/home/paulll/public/projects/bot6/",
+
+	"@include": [
+		"/home/paulll/public/projects/bot6/modules/lib.configedit/overrides.json"
+	]
 }

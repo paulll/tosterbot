@@ -6,7 +6,10 @@
 		"core.io"
 	],
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"core.memory",
+		"lib.debug",
+		"lib.configedit"
 	],
 	"desc": "Распознавание ключевого слова по pocketsphinx, остальная речь - Google Speech API",
 	"deps_npm": [

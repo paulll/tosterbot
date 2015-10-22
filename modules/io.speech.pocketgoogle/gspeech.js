@@ -7,6 +7,7 @@ var EventEmitter = require('events').EventEmitter, inherits = require('inherits'
 // Determine the best available transcription
 function determine(transcripts) {
 	var command = '', confidence = 0;
+	
 	transcripts.forEach(function(transcript) {
 		if(transcript.result && transcript.result.length > 0) {
 			transcript.result.forEach(function(node) {
@@ -19,6 +20,7 @@ function determine(transcripts) {
 			});
 		}
 	});
+
 	command = command.trim();
 	return command;
 }

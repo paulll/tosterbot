@@ -1,3 +1,5 @@
+"use strict";
+
 var	Session = api.lib.support.Session;
 
 class TcpSession extends Session {
