@@ -67,7 +67,7 @@ class VKClient  extends EventEmitter {
 		if (this.discontinued) {return}
 
 		var self = this,
-			retry = setTimeout.bind(null, this._getLongpoll.bind(null, server, key, ts), 1000),
+			retry = setTimeout.bind(null, this._getLongpoll.bind(this, server, key, ts), 1000),
 			addr = url.parse('http://' + server + '?act=a_check&key=' + key + '&ts=' + ts + '&wait=25&mode=2'),
 
 		request = http.request(addr, function (response) {
