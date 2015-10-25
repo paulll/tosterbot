@@ -17,9 +17,6 @@ class TalkController extends Brain {
 		 */
 		reduce(api.lang.parsers.values(), {confidence: 0}, function (current, parser, callback) {
 			parser.parse(message, function (error, probablyParsedMessage) {
-
-				console.log(probablyParsedMessage);
-
 				if (handleError(error, level.warn, callback)) {
 					if (current.confidence > probablyParsedMessage.confidence) {
 						callback(error, current);
@@ -29,9 +26,6 @@ class TalkController extends Brain {
 				}
 			});
 		}, function (error, parsedMessage) {
-
-			console.log(parsedMessage);
-
 			if (handleError(error, level.warn)) {
 				if (typeof parsedMessage.action !== 'undefined') {
 					if (!api.do(parsedMessage.action, parsedMessage, handleError)) {
