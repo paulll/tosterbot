@@ -1,93 +1,185 @@
 #!/usr/bin/env node
+"use strict";
 
-var fs = require('fs'),
+let fs = require('fs'),
 	path = require('path'),
-	async = require('async'),
-	graph = new (require('dependency-graph').DepGraph);
+	assert = require('assert'),
+	os = require('os');
 
-console.log('AI system is initializing..')
 
-fs.readdir('./modules/', function (error, nodes) {
-	if (error) { throw error; }
+/**
+ * Для отладочных нужд
+ */
+console.log(
+	"OS:",
+	os.platform(),
+	os.release(),
+	os.arch()
+);
 
-	async.map(nodes, function (value, callback) {
-		fs.readFile(path.join('modules', value, 'module.json'), {encoding: 'UTF-8'}, callback);
-	}, function (error, modules) {
-		if (error) { throw error; }
+/**
+ * Тестируем наличие модулей
+ */
+let depsOk = checkRequired({
+	'async': 'npm',
+	'dependency-graph': 'npm',
+	'./lib/modulesDetect.js': 'file',
+	'modules/': 'folder'
+});
 
-		console.log('Found', modules.lengh, 'modules');
-		console.log('Building dependency graph');
+assert.ok(depsOk, "Обнаружены неразрешенные зависимости ядра Системы.");
 
-		var tab = {};
+/**
+ * Начинаем загружать другие модули
+ */
+let async = require('async'),
+	graph = new (require('dependency-graph').DepGraph),
+	detect = require('./lib/modulesDetect');
 
-		try {
-			modules = modules.map(JSON.parse);			
-		} catch (error) {
-			modules.forEach(function (m) {
-				try {
-					JSON.parse(m);
-				} catch (e) {
-					console.log('Could not parse JSON:\n', m);
-					throw error;
+
+console.log('Обнаружение модулей');
+detect('modules/', function (error, modules) {
+	assert.ifError(error);
+
+	console.log('Обнаружено', modules.length, 'модулей.');
+	let modulesMap = new Map(),
+		success = true;
+
+	modules = modules.filter ( module => !module.manifest.disabled );
+
+	// register module
+	for (let module of modules) {
+		graph.addNode(module.manifest.name);
+		modulesMap.set(module.manifest.name, module);
+	}
+
+	// check module deps
+	for (let module of modules) {
+
+		let manifest = module.manifest;
+		
+		// (aliases) modules, that should be loaded before this. 
+		if (manifest.hasOwnProperty('after')) {
+			manifest.after.forEach(function (dep) {
+				graph.addDependency(manifest.name, dep);
+			});
+		}
+		if (manifest.hasOwnProperty('deps')) {
+			manifest.deps.forEach(function (dep) {
+				graph.addDependency(manifest.name, dep);
+			});
+		}
+		if (manifest.hasOwnProperty('dependences')) {
+			manifest.dependences.forEach(function (dep) {
+				graph.addDependency(manifest.name, dep);
+			});
+		}
+		
+		// (aliases) manifests, that should be loaded after this.
+		if (manifest.hasOwnProperty('before')) {
+			manifest.before.forEach(function (dep) {
+				graph.addDependency(dep, manifest.name);
+			});
+		}
+
+		// npm dependences
+		if (manifest.hasOwnProperty('deps_npm')) {
+			manifest.deps_npm.forEach(function(dep) {
+				
+				// TODO: check versions
+				// TODO: autoinstall deps
+
+				if (dep.shared) {
+					if (!require.resolve(dep.name)) {
+						success = false;
+						console.log('[Ошибочка]: Необходим npm-модуль', dep.name, '\n', 'Пожалуйста выполните $ npm i', dep.name);
+					}
+				} else {
+					let name = path.join(module.directory, 'node_modules', dep.name);
+					if (fs.existsSync(name)) {
+						if (!fs.statSync(name).isDirectory()){
+							success = false;
+							console.log('[Ошибочка]: Для модуля', manifest.name, 'необходим отдельно установленый npm-модуль', name, 'но по данному пути файл или что-то еще.');
+						}
+					} else {
+						success = false;
+						console.log('[Ошибочка]: Для модуля', manifest.name, 'необходим отдельно установленый npm-модуль', name);
+					}
 				}
 			});
 		}
 
-		modules.forEach(function (module) {
-			if (!module.disabled) {
-				graph.addNode(module.name);
-				tab[module.name] = module;
-			}
-		});
-
-		modules.forEach(function (module) {
-
-			if (module.disabled) {return;}
-
-			if (module.hasOwnProperty('deps')) {
-				module.deps.forEach(function (dep) {
-					graph.addDependency(module.name, dep);
-				});
-			}
-			if (module.hasOwnProperty('before')) {
-				module.before.forEach(function (dep) {
-					graph.addDependency(dep, module.name);
-				});
-			}
-			if (module.hasOwnProperty('deps_npm')) {
-				module.deps_npm.forEach(function(dep) {
-					if (dep.shared) {
-						if (!require.resolve(dep.name)) {
-							console.log('Shit happened: не хватает npm-модуля', dep.name);
-							process.exit(1);
-						}
-					} else {
-						// todo
+		// file dependences
+		if (module.hasOwnProperty('deps_files')) {
+			module.deps_files.forEach(function(name) {
+				if (fs.existsSync(name)) {
+					if (!fs.statSync(name).isFile()){
+						success = false;
+						console.log('[Ошибочка]: Необходим файл', name, 'но по данному пути папка или что-то еще.');
 					}
-				});
-			}
-			if (module.hasOwnProperty('deps_files')) {
-				module.deps_files.forEach(function(dep) {
-					if (!fs.existsSync(dep)) {
-						console.log('Shit happened: не хватает файла', dep);
-						process.exit(1);
-					}
-				});
-			}
-		});
-
-		console.log('Reached loading state');
-
-		try {
-			graph.overallOrder().forEach(function (module) {
-				console.log('Loading:', module);
-				require('./' + path.join('modules', module, tab[module].main));
+				} else {
+					success = false;
+					console.log('[Ошибочка]: Необходим файл', name, 'но его тут нет.');
+				}
 			});
-			console.log('Everything seems to be ready');
-		} catch (error) {
-			throw error;
-			console.log('Shit happened:', error.message);
-			process.exit(1);
 		}
+	}
+
+	if (!success) {
+		console.log('В ходе инициализации возникли ошибки и программа не может быть корректно запущена');
+		process.exit(1);
+	}
+
+	console.log('Составлен граф зависимости модулей');
+
+	graph.overallOrder().forEach(function (moduleName) {
+		let module = modulesMap.get(moduleName);
+		require('./' + path.join(module.directory, module.manifest.main));
 	});
 });
+
+function checkRequired(object) {
+	let	success = true;
+
+	for (let name in object) {
+		if (!object.hasOwnProperty(name)) {
+			continue;
+		}
+
+		switch (object[name]) {
+			case 'npm':
+				if (!require.resolve(name)) {
+					success = false;
+					console.log('[Ошибочка]: Необходим npm-модуль', name, '\n', 'Пожалуйста выполните $ npm i', name);
+				}
+				break;
+			case 'file':
+				if (fs.existsSync(name)) {
+					if (!fs.statSync(name).isFile()){
+						success = false;
+						console.log('[Ошибочка]: Необходим файл', name, 'но по данному пути папка или что-то еще.');
+					}
+				} else {
+					success = false;
+					console.log('[Ошибочка]: Необходим файл', name, 'но его тут нет.');
+				}
+				break;
+			case 'folder':
+				if (fs.existsSync(name)) {
+					if (!fs.statSync(name).isDirectory()){
+						success = false;
+						console.log('[Ошибочка]: Необходима папка', name, 'но по данному пути файл или что-то еще.');
+					}
+				} else {
+					success = false;
+					console.log('[Ошибочка]: Необходима папка', name, 'но её тут нет.');
+				}
+				break;
+			default:
+				success = false;
+				console.log('[Ошибочка]: Разработчик, возможно, ошибся, и я не могу определить, что именно он подразумевает под', name, 'но оно явно необходимо для запуска');
+		}
+	}
+
+	return success;
+} 
