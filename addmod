@@ -29,13 +29,15 @@ mod['deps_files'] = input('Требуемые файлы\n> ').split(', ')
 if mod['deps_files'][0] == '':
 	mod['deps_files'] = []
 
+moddir = mod['name'].replace('.', '/', 1);
+
 try:
-	os.mkdir('modules/' + mod['name'])
+	os.mkdir('modules/' + moddir)
 except:
 	pass
 
-metafile = open('modules/' + mod['name'] + '/module.json', 'w');
-mainfile = open('modules/' + mod['name'] + '/' + mod['main'], 'a');
+metafile = open('modules/' + moddir + '/module.json', 'w')
+mainfile = open('modules/' + moddir + '/' + mod['main'], 'a')
 
 metafile.write(json.dumps(mod, indent='\t', ensure_ascii=False))
 mainfile.write('')
