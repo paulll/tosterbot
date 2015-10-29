@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 "use strict";
+/* @flow */
 
 let fs = require('fs'),
 	path = require('path'),
@@ -58,32 +59,32 @@ detect('modules/', function (error, modules) {
 
 		let manifest = module.manifest;
 		
-		// (aliases) modules, that should be loaded before this. 
-		if (manifest.hasOwnProperty('after')) {
+		// (aliases) manifests, that should be loaded before this. 
+		if (typeof manifest.after !== 'undefined') {
 			manifest.after.forEach(function (dep) {
 				graph.addDependency(manifest.name, dep);
 			});
 		}
-		if (manifest.hasOwnProperty('deps')) {
+		if (typeof manifest.deps !== 'undefined') {
 			manifest.deps.forEach(function (dep) {
 				graph.addDependency(manifest.name, dep);
 			});
 		}
-		if (manifest.hasOwnProperty('dependences')) {
+		if (typeof manifest.dependences !== 'undefined') {
 			manifest.dependences.forEach(function (dep) {
 				graph.addDependency(manifest.name, dep);
 			});
 		}
 		
 		// (aliases) manifests, that should be loaded after this.
-		if (manifest.hasOwnProperty('before')) {
+		if (typeof manifest.before !=='undefined') {
 			manifest.before.forEach(function (dep) {
 				graph.addDependency(dep, manifest.name);
 			});
 		}
 
 		// npm dependences
-		if (manifest.hasOwnProperty('deps_npm')) {
+		if (typeof manifest.deps_npm !== 'undefined') {
 			manifest.deps_npm.forEach(function(dep) {
 				
 				// TODO: check versions
@@ -110,7 +111,7 @@ detect('modules/', function (error, modules) {
 		}
 
 		// file dependences
-		if (module.hasOwnProperty('deps_files')) {
+		if (typeof module.deps_files !== 'undefined') {
 			module.deps_files.forEach(function(name) {
 				if (fs.existsSync(name)) {
 					if (!fs.statSync(name).isFile()){
@@ -132,9 +133,80 @@ detect('modules/', function (error, modules) {
 
 	console.log('Составлен граф зависимости модулей');
 
-	graph.overallOrder().forEach(function (moduleName) {
+	let order = graph.overallOrder();
+
+	async.mapSeries(order, function (moduleName, callback) {
+
 		let module = modulesMap.get(moduleName);
-		require('./' + path.join(module.directory, module.manifest.main));
+
+		// запускает модуль
+		let run = function (callback) {
+			let mod = require('./' + path.join(module.directory, module.manifest.main));
+
+			if (typeof module.manifest.async !== 'undefined') {
+				mod[module.manifest.async](function (error) {
+					if (error) {
+						console.log('Один из модулей сообщил об ошибке. Выполнение завершено');
+						console.error(error);
+						process.exit(1);
+					}
+
+					callback();
+				});
+			} else {
+				callback();
+			}
+		}
+
+		// запускает тесты, если они есть
+		if (typeof module.manifest.tests !== 'undefined') {
+			if (typeof module.manifest.tests.before !== 'undefined') {
+				let tests = require('./' + path.join(module.directory, module.manifest.tests.before));
+			
+				tests.run(function (success) {
+					if (success) {
+						run(function () {
+							if (typeof module.manifest.tests.after !== 'undefined') {
+								let tests = require('./' + path.join(module.directory, module.manifest.tests.after));
+
+								tests.run(function (success) {
+									if (success) {
+										callback();
+									} else {
+										console.log('В ходе самотестирования обнаружена неполадка. Выполнение завершено.');
+										process.exit(1);
+									}
+								});
+							}
+						});						
+					} else {
+						console.log('В ходе самотестирования обнаружена неполадка. Выполнение завершено.');
+						process.exit(1);
+					}
+				});
+			} else {
+				run(function () {
+					if (typeof module.manifest.tests.after !== 'undefined') {
+						let tests = require('./' + path.join(module.directory, module.manifest.tests.after));
+
+						tests.run(function (success) {
+							if (success) {
+								callback();
+							} else {
+								console.log('В ходе самотестирования обнаружена неполадка. Выполнение завершено.');
+								process.exit(1);
+							}
+						});
+					} else {
+						callback();
+					}
+				});
+			}
+		} else {
+			run(callback);
+		}
+	}, function () {
+		console.log('Модули успешно загружены');
 	});
 });
 
