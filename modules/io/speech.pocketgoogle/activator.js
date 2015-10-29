@@ -15,8 +15,8 @@ function startListening (directory, keyphrase) {
 			"/usr/local/bin/pocketsphinx_continuous",
 			[
 				'-inmic', 'yes', 
-				'-hmm', `${directory}/modules/io.speech.pocketgoogle/pocket/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000`,
-				'-dict', `${directory}/modules/io.speech.pocketgoogle/pocket/mydict.dict`,
+				'-hmm', `${directory}/modules/io/speech.pocketgoogle/pocket/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000`,
+				'-dict', `${directory}/modules/io/speech.pocketgoogle/pocket/mydict.dict`,
 				//'-jsgf', '/home/paulll/public/projects/bot6/modules/io.speech.pocketgoogle/pocket/control.jsgf',
 				'-keyphrase', keyphrase,
 				'-kws_threshold', '1e-40',
@@ -44,7 +44,7 @@ function startListening (directory, keyphrase) {
 		getSimple('recognition.keyphrase', function (error, keyphrase) {
 			log('Got the keyphrase');
 
-			fs.readFile(`${directory}/modules/io.speech.pocketgoogle/pocket/mydict.dict`, {encoding: "utf-8"}, function (error, data) {
+			fs.readFile(`${directory}/modules/io/speech.pocketgoogle/pocket/mydict.dict`, {encoding: "utf-8"}, function (error, data) {
 				log('Got the dict', error);
 
 				let needed = [],
@@ -59,11 +59,11 @@ function startListening (directory, keyphrase) {
 				if (needed.length) {
 					log('Dict not ready');
 
-					let child = child_process.exec(`${directory}/modules/io.speech.pocketgoogle/pocket/ru4sphinx/text2dict/dict2transcript.pl`, {
-						cwd: `${directory}/modules/io.speech.pocketgoogle/pocket/ru4sphinx/text2dict`,
+					let child = child_process.exec(`${directory}/modules/io/speech.pocketgoogle/pocket/ru4sphinx/text2dict/dict2transcript.pl`, {
+						cwd: `${directory}/modules/io/speech.pocketgoogle/pocket/ru4sphinx/text2dict`,
 						encoding: 'utf-8'
 					}, function (error, stdout) {
-						fs.appendFile(`${directory}/modules/io.speech.pocketgoogle/pocket/mydict.dict`, stdout, function (error) {
+						fs.appendFile(`${directory}/modules/io/speech.pocketgoogle/pocket/mydict.dict`, stdout, function (error) {
 							startListening(directory, keyphrase);
 						});
 					});
