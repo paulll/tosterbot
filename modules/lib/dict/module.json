@@ -10,5 +10,8 @@
 		"core.namespace",
 		"lib.simplify"
 	],
-	"deps_npm": []
+	"deps_npm": [],
+	"tests": {
+		"after": "tests-after.js"
+	}
 }
