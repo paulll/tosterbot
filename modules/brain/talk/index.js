@@ -10,6 +10,10 @@ var Brain = api.lib.support.Brain,
 class TalkController extends Brain {
 	handler (message) {
 
+		if (message.session.locks.length) {
+			return false;
+		}
+
 		/**
 		 * Прогоняем сообщение по всем парсерам.
 		 * результат с наибольшим confidence будет
