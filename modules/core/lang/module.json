@@ -2,9 +2,14 @@
 	"name": "core.lang",
 	"main": "index.js",
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"lib.iterate",
+		"lib.debug"
 	],
 	"deps_npm": [
-		"async"
+		{
+			"name": "async",
+			"shared": true
+		}
 	]
 }
