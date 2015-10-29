@@ -9,12 +9,13 @@
 */
 
 "use strict";
+require('colors');
 
-const fatal_prefix	=	'[FATAL!] '.red;
-const error_prefix	=	'[ERROR] '.red;
-const warn_prefix	=	'[WARN] '.yellow;
-const info_prefix	=	'[INFO] '.cyan;
-const debug_prefix	=	'[DEBUG] '.gray;
+const fatal_prefix	=	'[FATAL!]'.red;
+const error_prefix	=	'[ERROR]'.red;
+const warn_prefix	=	'[WARN]'.yellow;
+const info_prefix	=	'[INFO]'.cyan;
+const debug_prefix	=	'[DEBUG]'.gray;
 
 api.lib.debug = {};
 
