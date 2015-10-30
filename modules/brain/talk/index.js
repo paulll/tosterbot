@@ -19,17 +19,7 @@ class TalkController extends Brain {
 		 * результат с наибольшим confidence будет
 		 * считаться окончательным.
 		 */
-		reduce(api.lang.parsers.values(), {confidence: 0}, function (current, parser, callback) {
-			parser.parse(message, function (error, probablyParsedMessage) {
-				if (handleError(error, level.warn, callback)) {
-					if (current.confidence > probablyParsedMessage.confidence) {
-						callback(error, current);
-					} else {
-						callback(error, probablyParsedMessage);	
-					}
-				}
-			});
-		}, function (error, parsedMessage) {
+		api.lang.parseSimple(message, function (error, parsedMessage) {
 			if (handleError(error, level.warn)) {
 				if (typeof parsedMessage.action !== 'undefined') {
 					if (!api.do(parsedMessage.action, parsedMessage, handleError)) {
@@ -43,17 +33,7 @@ class TalkController extends Brain {
 				 * результат с наибольшим confidence будет
 				 * считаться окончательным.
 				 */
-				reduce(api.lang.generators.entries(), {confidence: 0}, function (current, generator, callback) {
-					generator.generate(parsedMessage, function (error, probablyGeneratedMessage) {
-						if (handleError(error, level.warn, callback)) {
-							if (current.confidence > probablyGeneratedMessage.confidence) {
-								callback(error, current);
-							} else {
-								callback(error, probablyGeneratedMessage);
-							}
-						}
-					});
-				}, function (error, resultMessage) {
+				api.lang.generateSimple(parsedMessage, function (error, resultMessage) {
 					if (handleError(error, level.warn)) {
 						if (message.confidence) {
 							message.session.send(resultMessage);
