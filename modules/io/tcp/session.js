@@ -12,8 +12,14 @@ class TcpSession extends Session {
 	}
 
 	send (message, callback) {
-		this.appendMessage(message);
-		this.socket.send(message, callback);
+		var self = this;
+
+		this.socket.write(message.text, 'utf8', function (error) {
+			if (!error) {
+				self.appendMessage(message);
+			}
+			if (callback) callback(error);
+		});
 	};
 }
 

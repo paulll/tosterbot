@@ -16,11 +16,18 @@ class VKSession extends Session {
 		console.log('SEND', message, this.user_id);
 		return;
 
+		var self = this;
+
 		this.client.request('messages.send', {
 			user_id: this.user_id,
 			guid: Math.random() * 1e17,
-			message: (message||'d').toString()
-		}, callback || function () {});
+			message: message.text
+		}, function (error) {
+			if (!error) {
+				self.appendMessage(message);
+			}
+			if (callback) callback(error);
+		});
 	};
 }
 
