@@ -16,29 +16,33 @@ class TcpIoProvider extends IoProvider {
 		var self = this;
 		
 		var server = net.createServer(function (socket) {
-			var session = new TcpSession(TcpIoProvider, socket);
+			var session = new TcpSession(self, socket);
 			self.appendSession(session);
 
 			socket.setEncoding('utf8');
 
 			// @todo: motd --> приветствие 
-			getSimple('TcpMotd', function (error, result) {
+			getSimple('tcp.motd', function (error, result) {
 				if (handleError(error, level.warn)) {
 					socket.write(result);
 				}
-				socket.write('> ');
+				socket.write('\n> ');
 			});
 
 			socket.on('close', function () {
 				session.close();
 			});
 
-			socket.on('message', function (message) {
-				session.appendMessage(new RequestMessage(message));
+			socket.on('data', function (message) {
+				session.appendMessage(new RequestMessage(message.toString()));
+			});
+
+			session.on('message.out', function () {
+				socket.write('\n> ');
 			});
 		});
 
-		getSimple('TcpChatPort', function (error, result) {
+		getSimple('tcp.port', function (error, result) {
 			if (handleError(error, level.warn)) {
 				server.listen(parseInt(result, 10));
 			}
