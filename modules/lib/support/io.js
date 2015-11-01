@@ -55,6 +55,7 @@ class Session extends EventEmitter {
 		super();
 		this.provider = provider;
 		this.history = [];
+		this.locks = [];
 		this.closed = false;
 	}
 
