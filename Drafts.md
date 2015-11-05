@@ -1,34 +1,4 @@
-Интерфейсы 
-----------
-
-```
-class Message (string data, object session){
-    method toString()
-    [object context]
-}
-
-class Session extends EventEmitter () {
-    method send(Message, callback(error))
-    event message Message
-    event end
-    bool ended
-}
-
-class io extends EventEmitter {
-    event session Session
-    array sessions
-}
-
-class sense {
-    method readState (callback(error, data))
-}
-
-class notify {
-    // callback вызывается если сообщение не дошло (error) или было прочитано ().
-    method notify(message, callback(error))
-}
-```
-
+# Внимание! Этот текст - полная еботень, которую я писал лично для себя.
 
 Обработка данных
 ----------------
