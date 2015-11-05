@@ -1,69 +1,11 @@
 @action xselact
-@param.in base64
 действие = сконвертируй, преобразуй, переведи, перевести, сконвертировать, преобразовать
 унарное действие = упрости
-base64 = base64, бейс64, base 64, бейс 64, б64, b64
-string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
-hex = hex, хекс, хекслеты
-bin = bin, двоичный код, бинарный код, бин, бинари, бинарник
-json = json, жсон, javascript object notation
-объект = %base64%
-цель = %base64%, %string%, %hex%, %bin%, %json%
-все = %действие% %объект% в %цель%, %унарное действие% %объект%
-return все
-
-@action xselact
-@param.in bin
-действие = сконвертируй, преобразуй, переведи, перевести, сконвертировать, преобразовать
-унарное действие = упрости
-base64 = base64, бейс64, base 64, бейс 64, б64, b64
-string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
-hex = hex, хекс, хекслеты
-bin = bin, двоичный код, бинарный код, бин, бинари, бинарник
-json = json, жсон, javascript object notation
-объект = %bin%
-цель = %base64%, %string%, %hex%, %bin%, %json%
-все = %действие% %объект% в %цель%, %унарное действие% %объект%
-return все
-
-@action xselact
-@param.in hex
-действие = сконвертируй, преобразуй, переведи, перевести, сконвертировать, преобразовать
-унарное действие = упрости
-base64 = base64, бейс64, base 64, бейс 64, б64, b64
-string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
-hex = hex, хекс, хекслеты
-bin = bin, двоичный код, бинарный код, бин, бинари, бинарник
-json = json, жсон, javascript object notation
-объект = %hex%
-цель = %base64%, %string%, %hex%, %bin%, %json%
-все = %действие% %объект% в %цель%, %унарное действие% %объект%
-return все
-
-@action xselact
-@param.in json
-действие = сконвертируй, преобразуй, переведи, перевести, сконвертировать, преобразовать
-унарное действие = упрости
-base64 = base64, бейс64, base 64, бейс 64, б64, b64
-string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
-hex = hex, хекс, хекслеты
-bin = bin, двоичный код, бинарный код, бин, бинари, бинарник
-json = json, жсон, javascript object notation
-объект = %json%
-цель = %base64%, %string%, %hex%, %bin%, %json%
-все = %действие% %объект% в %цель%, %унарное действие% %объект%
-return все
-
-@action xselact
-@param.in string
-действие = сконвертируй, преобразуй, переведи, перевести, сконвертировать, преобразовать
-унарное действие = упрости
-base64 = base64, бейс64, base 64, бейс 64, б64, b64
-string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
-hex = hex, хекс, хекслеты
-bin = bin, двоичный код, бинарный код, бин, бинари, бинарник
-json = json, жсон, javascript object notation
-объект = %string%
-цель = %base64%, %string%, %hex%, %bin%, %json%
-все = %действие% %объект% в %цель%, %унарное действие% %объект%
+#base64 = base64, бейс64, base 64, бейс 64, б64, b64
+#string = строку, текст, ascii, unicode, utf8, utf-8, utf 8, utf
+#hex = hex, хекс, хекслеты
+#bin = bin, двоичный код, бинарный код, бин, бинари, бинарник, эти ?единички и нули
+#json = json, жсон, javascript object notation
+объект = %base64%, %json%, %bin%, %hex%, %string%
+все = %действие% &(object, %объект%) в &(target, %объект%)*, %унарное действие% &(unary, %объект%)
 return все
