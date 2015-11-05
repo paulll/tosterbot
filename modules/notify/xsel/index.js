@@ -1,11 +1,15 @@
-var spawn = require('child_process').spawn;
+"use strict";
 
-api.notify.xsel = {};
+var spawn = require('child_process').spawn,
+	NotificationProvider = api.lib.support.NotificationProvider
 
-// xsel implements Sense
-api.notify.xsel.notify = function (message, callback) {
-	var proc = spawn('xsel', ['-pi']);
-	proc.stdin.write(message);
-	proc.on('close', callback || function () {});
-	proc.stdin.end();
-};
+class XselNotificationProvider extends NotificationProvider {
+	notify (message, callback) {
+		let proc = spawn('xsel', ['-pi']);
+		proc.stdin.write(message);
+		proc.on('close', callback || function () {});
+		proc.stdin.end();
+	}
+}
+
+api.notify.providers.set('xsel', new XselNotificationProvider);

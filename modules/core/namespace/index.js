@@ -4,6 +4,8 @@ var EventEmitter = require('events').EventEmitter;
 global.api = new EventEmitter;
 
 api.notify = {};
+api.notify.providers = new Map;
+
 api.action = {};
 api.lib = {};
 api.core = {};
