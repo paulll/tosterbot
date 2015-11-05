@@ -22,15 +22,4 @@ function random(a) {
 	}
 }
 
-function restore(k, v) {
-	if (v.hasOwnProperty('v')) {
-		return new Set(v.v);
-	}
-	return v;
-}
-
-/**
- * Пример
- */
-
 module.exports = random;
