@@ -1,65 +1,194 @@
 "use strict";
 
+class NamedSet extends Set {
+	constructor (name, array) {
+		super(array);
+		this.name = name;
+	}
+}
+
 var tests = [
 	[
-		'Should support single Sets',
+		'Должно поддерживать невложенные множества',
 		new Set(['a', 'b', 'c']),
 		'b'
 	],
 	[
-		'Should support nested Sets',
-		new Set([new Set(['a', 'b', 'c'])]),
+		'Должно поддерживать вложенные множества',
+		new Set([
+			new Set(['a', 'b', 'c'])
+		]),
 		'b'
 	],
 	[
-		'Should support concat (Arrays)',
-		new Set([[new Set(['a', 'b', 'c']), new Set(['a', 'b', 'c'])]]),
+		'Должно поддерживать конкатенцию',
+		new Set([
+			[
+				new Set(['a', 'b', 'c']),
+				new Set(['a', 'b', 'c'])
+			]
+		]),
 		'ac'
 	],
 	[
-		'Should handle wrong ways',
-		new Set([[new Set(['ab', 'cb', 'c']), new Set(['c', 'a', 'bR'])]]),
-		'cbR'
-	],
-	[
-		'Should handle nested arrays',
-		new Set([[['a', 'b'], 'c']]),
+		'Должно поддерживать вложенную конкатенцию',
+		new Set([
+			[
+				[
+					'a',
+					['b']
+				],
+				'c'
+			]
+		]),
 		'abc'
 	],
 	[
-		'Should just work',
+		'Должно определять ложные пути',
 		new Set([
-		    new Set([["прив", new Set(["", "ет"])], "приветик", "l"]),
-		    new Set(["здраствуй", "здарова", "здорова", "здраствуйте", "здравия желаю", "здаров"]),
-		    new Set(["хай", "хей", "хелло", "хеллоу", "хело", "хелоу"]),
-		    new Set(["зд", "првт", "хлло", "здрствй", "здрствуй", "приветь", "приветъ"]),
+			[
+				new Set([
+					'start-middle',
+					'start'
+				]),
+				new Set([
+					'-middle-end',
+				])
+			]
 		]),
-		'прив'
+		'start-middle-end'
 	],
 	[
-		'Should support something more',
-		new Set([[
-			'flag-',
-			new Set(["{pref-1}", "{pref-2}", "{pref-3}"]),
-			new Set(["{root-1}", "{root-2}", "{root-3}"]),
-			new Set(["{suff-1}", "{suff-2}", "{suff-3}"]),
-			new Set(["{wro", "{wrong-1}", "{wrong"]),
-			new Set(["ng", "-"]),
-			new Set(["{end-1}", "{end-2}", "{end-3}"]),
-		]]),
-		'flag-{pref-1}{root-3}{suff-1}{wrong-1}-{end-2}'
+		'Должно обрабатывать группы',
+		new NamedSet('root', ['a', 'b', 'c']),
+		'a',
+		{
+			root: 'a'
+		}
+	],
+	[
+		'Должно обрабатывать группы во вложенных множествах',
+		new Set([
+			[
+				new NamedSet('not-a-root', [
+					'start',
+					'end'
+				]),
+				'-',
+				new NamedSet('not-a-second-root', [
+					'end',
+					'start'
+				])
+			]
+		]),
+		'start-end',
+		{
+			'not-a-root': 'start',
+			'not-a-second-root': 'end'
+		}
+	],
+	[
+		'Должно обрабатывать вложенные группы',
+		new NamedSet('root', [
+			new NamedSet('group-first', [
+				'start',
+				'end',
+				'nope',
+				''
+			]),
+			[
+				new NamedSet('group-second', [
+					new NamedSet('group-subsecond', [
+						'start'
+					]),
+					'end'
+				]),
+				'-',
+				new NamedSet('group-third',[
+					'end'
+				])
+			]
+		]),
+		'start-end',
+		{
+			'root': 'start-end',
+			'root.group-second': 'start',
+			'root.group-second.group-subsecond': 'start',
+			'root.group-third': 'end'
+		}
+	],
+	[
+		'Должно работать',
+		new Set([
+			[
+				new Set(['сконвертируй','преобразуй','переведи','перевести','сконвертировать','преобразовать']),
+				' ',
+				new NamedSet('object', [
+					new NamedSet('base64', ['base64','бейс64','base 64','бейс 64','б64','b64']),
+					new NamedSet('string', ['строку','текст','ascii','unicode','utf8','utf-8','utf 8','utf']),
+					new NamedSet('hex', ['hex','хекс','хекслеты']),
+					new NamedSet('bin', ['bin','двоичный код','бинарный код','бин','бинари','бинарник']),
+					new NamedSet('json', ['json','жсон','javascript object notation'])
+				]),
+				' в ',
+				new NamedSet('target', [
+					new NamedSet('base64', ['base64','бейс64','base 64','бейс 64','б64','b64']),
+					new NamedSet('string', ['строку','текст','ascii','unicode','utf8','utf-8','utf 8','utf']),
+					new NamedSet('hex', ['hex','хекс','хекслеты']),
+					new NamedSet('bin', ['bin','двоичный код','бинарный код','бин','бинари','бинарник']),
+					new NamedSet('json', ['json','жсон','javascript object notation'])
+				])
+			],
+			[
+				'упрости',
+				' ',
+				new NamedSet('unaryObject', [
+					new NamedSet('base64', ['base64','бейс64','base 64','бейс 64','б64','b64']),
+					new NamedSet('string', ['строку','текст','ascii','unicode','utf8','utf-8','utf 8','utf']),
+					new NamedSet('hex', ['hex','хекс','хекслеты']),
+					new NamedSet('bin', ['bin','двоичный код','бинарный код','бин','бинари','бинарник']),
+					new NamedSet('json', ['json','жсон','javascript object notation'])
+				])
+			]
+		]),
+		'переведи строку в base64',
+		{
+			'object': {value: 'строку', items: ['string']},
+			//'object.string': {value: 'строку'},
+			'target': {value: 'base64', items: ['base64']}
+			//'target.base64': 'base64'
+		}
 	]
 ];
 
 var dictcheck = require('./dictcheck');
 
-exports.run = function (callback) {
-	
-	let success = true;
 
+exports.run = function (callback, strict) {
+	let success = true;
 	tests.forEach(function (test) {
-		if (dictcheck(test[1], test[2])) {
-			//console.log('[SUCC]', test[0]);
+
+		if (!success && strict) {
+			return;
+		}
+
+		let result, result2
+		if (result = dictcheck(test[1], test[2])) {
+
+			if (false&&test[3]) {
+				for (var i in test[3]) {
+					if (test[3].hasOwnProperty(i)) {
+						if (result.scope.get(i) == test[3][i]) {
+							console.log('[Тест успешен]', test[0]);
+						} else {
+							console.log('[Тест провален]', test[0]);
+							success = false;
+						}
+					}
+				}
+			} else {
+				console.log('[Тест успешен]', test[0]);
+			}
 		} else {
 			console.log('[Тест провален]', test[0]);
 			success = false;
