@@ -33,7 +33,9 @@ class VKClient  extends EventEmitter {
 
 			response.on('end', function () {
 				if (!data) { return retry() }
-				callback(null, JSON.parse(data));
+				
+				let response = JSON.parse(data);
+				callback(response.error, response.response);
 			});
 
 			response.on('error', retry);
@@ -52,8 +54,8 @@ class VKClient  extends EventEmitter {
 			use_ssl: false,
 			need_pts: 0
 		}, function (error, resp) {
-			if (handleError(error || resp.error ? new Error(resp.error.error_msg) : null, level.warn)) {
-				self._getLongpoll(resp.response.server, resp.response.key, resp.response.ts);
+			if (handleError(error, level.warn)) {
+				self._getLongpoll(resp.server, resp.key, resp.ts);
 			}
 		});
 	}
