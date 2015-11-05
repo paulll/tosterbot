@@ -35,7 +35,7 @@ class TalkController extends Brain {
 				 */
 				api.lang.generateSimple(parsedMessage, function (error, resultMessage) {
 					if (handleError(error, level.warn)) {
-						if (message.confidence) {
+						if (resultMessage.confidence) {
 							message.session.send(resultMessage);
 						}
 					};
