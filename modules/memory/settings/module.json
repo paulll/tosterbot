@@ -1,6 +1,8 @@
 {
 	"deps": [
-		"core.namespace"
+		"core.namespace",
+		"lib.support",
+		"lib.iterate"
 	],
 	"deps_npm": [
 		{
