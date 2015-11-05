@@ -1,9 +1,10 @@
 "use strict";
 
 var check = require('./dictcheck.js'),
-	parse = require('./dictparse.js'),
+	Parser = require('./dictparser.js'),
 	rand = require('./dictrandom.js'),
 	meta = require('./dictmeta.js'),
+	args = require('./dictargs.js'),
 	fs = require('fs');
 
 api.lib.dict = {};
@@ -18,7 +19,8 @@ api.lib.dict.loadRules = function (file, callback) {
 			let dicts = meta(data).map(function (data) {
 				return {
 					params: data.params,
-					ast: JSON.parse(JSON.stringify(parse(data.code)), restore)
+					ast: (new Parser(data.code)).optimized
+					//ast: JSON.parse(JSON.stringify(parse(data.code)), restore)
 				}
 			});
 
@@ -34,8 +36,8 @@ api.lib.dict.loadDict = function (file, callback) {
 			callback(error);
 		} else {
 			meta(data).forEach(function (data) {
-				api.lib.dict.dict[data.params.name] = data.params;
-				api.lib.dict.dict[data.params.name].text = parse(data.code);
+				api.lib.dict.dict.set(data.params.name, data.params);
+				data.params.text = (new Parser(data.code)).optimized
 			});
 			callback(null);
 		}
@@ -44,36 +46,42 @@ api.lib.dict.loadDict = function (file, callback) {
 
 
 api.lib.dict.parse = function (string) {
-
-	console.log(string);
-
-	var simple = api.lib.simplify(string);
+	var simple = string // api.lib.simplify(string);
 	for (let rule of api.lib.dict.rules) {
-		let tokens;
-		if (tokens = check(rule.ast, simple)) {
+		let checkResult;
+		if (checkResult = check(rule.ast, simple)) {
 			let response = Object.create(rule.params);
-			response.tokens = tokens;
+			response.scope = checkResult.scope;
 			return response;
 		}
 	}
 };
 
-api.lib.dict.generate = function (id) {
-	if (typeof api.lib.dict.dict[id] === 'undefined') {
+api.lib.dict.generate = function (id, arg) {
+	if (typeof api.lib.dict.dict.get(id) === 'undefined') {
 		return false;
 	}
-	var response = Object.create(api.lib.dict.dict[id]);
-	response.text = rand(response.text);
+	var response = Object.create(api.lib.dict.dict.get(id));
+	response.text = args(rand(response.text), arg);
 	return response;
 };
 
 
 function restore(k, v) {
 	if (typeof v === 'string') {
-		return api.lib.simplify(v);
+		if (~v.indexOf('__raw__! ')) {
+			return v.substr('__raw__! '.length);
+		}
+		return v //api.lib.simplify(v);
 	}
 	if (v.hasOwnProperty('v')) {
-		return new Set(v.v);
+		let e = new Set(v.v);
+		for (let i in v) {
+			if (v.hasOwnProperty(i)) {
+				e[i] = v[i];
+			}
+		}
+		return e;
 	}
 	return v;
 }
