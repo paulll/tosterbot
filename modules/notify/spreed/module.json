@@ -1,0 +1,14 @@
+{
+	"main": "index.js",
+	"deps_files": [],
+	"deps": [
+		"lib.spreed",
+		"lib.support"
+	],
+	"desc": "Уведомления в режиме быстрого чтения",
+	"name": "notify.spreed",
+	"deps_npm": [],
+	"before": [
+		"core.notify"
+	]
+}

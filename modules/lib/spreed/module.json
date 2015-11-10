@@ -1,0 +1,14 @@
+{
+	"deps_npm": [],
+	"deps": [
+		"core.namespace",
+		"lib.debug"
+	],
+	"desc": "Отображает текст внизу экрана",
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"name": "lib.spreed",
+	"main": "index.js"
+}

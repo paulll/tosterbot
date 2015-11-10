@@ -1,0 +1,3 @@
+#!/bin/bash
+
+c++ gtk-spreed.cc gtk-window.cc $(pkg-config gtkmm-3.0 --libs --cflags) -std=c++11 -o ../bin/displaytext
