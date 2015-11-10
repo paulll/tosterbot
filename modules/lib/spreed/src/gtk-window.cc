@@ -6,21 +6,21 @@
  * as modified by karlphillip for StackExchange:
  *     (http://stackoverflow.com/questions/3908565/how-to-make-gtk-window-background-MainWindow)
  * Re-worked for Gtkmm 3.0 by Louis Melahn, L.C. January 31, 2014.
+ * modified by paulll (https://github.com/paulll/tosterbot/blob/master/modules/lib/spreed/src/gtk-window.cc)
  */
 #include "gtk-window.h"
 
 MainWindow::MainWindow()
 {
 
+	// Получаем параметры текущего монитора.
 	Glib::RefPtr<Gdk::Screen> screen = get_screen();
 	const int monitor = screen->get_primary_monitor();
 	Gdk::Rectangle size = screen->get_monitor_workarea(monitor);
 
 
-
-	// Set up the top-level window.
+	// Параметры окна (имя, размер, положение)
 	set_title("Tosterbot");
-	//set_default_size(400,200);
 	set_decorated(false);
 	set_can_focus(false);
 	set_app_paintable(true);
@@ -33,42 +33,35 @@ MainWindow::MainWindow()
 	move(size.get_x(), size.get_y() + size.get_height() - 150);
 
 
-	// Signal handlers
+	// Обработка для прозрачного фона
 	signal_draw().connect(sigc::mem_fun(*this, &MainWindow::on_draw));
 	signal_screen_changed().connect(sigc::mem_fun(*this, &MainWindow::on_screen_changed));
-
-	// Widgets
 	on_screen_changed(get_screen());
+
+	// Выравнивалка
 	add(_vbox);
+	_vbox.add(_label);
 
-	Glib::ustring text = "<span foreground=\"black\" background=\"white\">t<span foreground=\"red\">o</span>ster</span>";
-
-	_label.set_use_markup();
-	_label.set_label(text);
-
+	// Полный размер нужен для выравнивания текста
 	_label.set_hexpand(true);
 	_label.set_vexpand(true);
 
-	// Now pack the button into the aligner.
-	_vbox.add(_label);
+	// Позволяет использовать разметку для оформления текста
+	_label.set_use_markup();
 
-
+	// Обновление текста
 	sigc::slot<bool>my_slot = sigc::mem_fun(*this, &MainWindow::upd);
 	Glib::signal_timeout().connect(my_slot, 30);
 
-	// Show the window and all its children.
+	// По-умолчанию элементы невидимы.
 	show_all();
-
-	/*/
-	std::string line;
-	while (getline(std::cin, line)) {
-		text = Glib::ustring(line);
-		std::cout << "Hmm: " << text << std::endl;
-		_label.set_label(text);
-	}
-	//*/
 }
 
+/**
+ * Проверяет, доступен ли stdin для чтения.
+ * Нужно для того, чтобы избежать блокировки.
+ * Не должно работать на винде, я полагаю. Хотя хз.
+ */
 bool inputAvailable()  
 {
 	struct timeval tv;
@@ -81,13 +74,16 @@ bool inputAvailable()
 	return (FD_ISSET(0, &fds));
 }
 
+/**
+ * Вызывается раз в 30мс, и рисует строку,
+ * если она поступила в stdin
+ */
 bool MainWindow::upd() {
 	std::string line;
 	Glib::ustring text;
 	if (inputAvailable()) {
 		if (getline(std::cin, line)) {
 			text = Glib::ustring(line);
-			//std::cout << "hey: " << text << std::endl;
 			_label.set_label(text);
 		} else {
 			return false;
@@ -103,13 +99,16 @@ MainWindow::~MainWindow()
 {
 }
 
+/**
+ * Рисует фон
+ */
 bool MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
 	cr->save();
 	if (_SUPPORTS_ALPHA) {
-		cr->set_source_rgba(0, 0, 0, 0);    // MainWindow
+		cr->set_source_rgba(0, 0, 0, 0);
 	} else {
-		cr->set_source_rgb(0, 0, 0);          // opaque
+		cr->set_source_rgb(0, 0, 0);
 	}
 	cr->set_operator(Cairo::OPERATOR_SOURCE);
 	cr->paint();
@@ -119,7 +118,7 @@ bool MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 }
 
 /**
- * Checks to see if the display supports alpha channels
+ * Проверка, поддерживает ли экран альфа-канал
  */
 void MainWindow::on_screen_changed(const Glib::RefPtr<Gdk::Screen>& previous_screen) {
 	auto screen = get_screen();
@@ -128,7 +127,6 @@ void MainWindow::on_screen_changed(const Glib::RefPtr<Gdk::Screen>& previous_scr
 	if (!visual) {
 		std::cout << "Your screen does not support alpha channels!" << std::endl;
 	} else {
-		//std::cout << "Your screen supports alpha channels!" << std::endl;
 		_SUPPORTS_ALPHA = TRUE;
 	}
 
@@ -136,20 +134,8 @@ void MainWindow::on_screen_changed(const Glib::RefPtr<Gdk::Screen>& previous_scr
 }
 
 /**
- * This simply adds a method which seems to be missing in Gtk::Widget,
- * so I had to use Gtk+ manually.
- *
- * Sets the visual for 'this' (the current widget).
+ * Видимо отсутствует в Gtkmm, так что тут реализация из чистого Gtk
  */
 void MainWindow::set_visual(Glib::RefPtr<Gdk::Visual> visual) {
 	gtk_widget_set_visual(GTK_WIDGET(gobj()), visual->gobj());
-}
-
-/**
- * If I click somewhere other than the button, this toggles
- * between having window decorations and not having them.
- */
-bool MainWindow::on_window_clicked(GdkEventButton* event) {
-	set_decorated(!get_decorated());
-	return false;
 }
