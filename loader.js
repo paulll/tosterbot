@@ -23,8 +23,10 @@ console.log(
  */
 let depsOk = checkRequired({
 	'async': 'npm',
+	'toposort': 'npm',
 	'dependency-graph': 'npm',
 	'./lib/modulesDetect.js': 'file',
+	'./lib/depgraph.js': 'file',
 	'modules/': 'folder'
 });
 
@@ -34,7 +36,7 @@ assert.ok(depsOk, "Обнаружены неразрешенные зависи�
  * Начинаем загружать другие модули
  */
 let async = require('async'),
-	graph = new (require('dependency-graph').DepGraph),
+	graph = new (require('./lib/depgraph').DependencyGraph),
 	detect = require('./lib/modulesDetect');
 
 
@@ -50,7 +52,7 @@ detect('modules/', function (error, modules) {
 
 	// register module
 	for (let module of modules) {
-		graph.addNode(module.manifest.name);
+		graph.addNode({name: module.manifest.name});
 		modulesMap.set(module.manifest.name, module);
 	}
 
@@ -59,33 +61,28 @@ detect('modules/', function (error, modules) {
 
 		let manifest = module.manifest;
 		
-		// (aliases) manifests, that should be loaded before this. 
-		if (typeof manifest.after !== 'undefined') {
-			manifest.after.forEach(function (dep) {
-				graph.addDependency(manifest.name, dep);
-			});
+		// (aliases) manifests, that must be loaded before this. 
+		manifest.after = manifest.after || manifest.dependences || manifest.deps || [];
+		for (let dep of manifest.after) {
+			graph.addLink({from: manifest.name, to: dep});
 		}
-		if (typeof manifest.deps !== 'undefined') {
-			manifest.deps.forEach(function (dep) {
-				graph.addDependency(manifest.name, dep);
-			});
+
+		// (aliases) modules, that should be loaded before
+		manifest.optional_deps = manifest.optional_after || manifest.optional_dependences || manifest.optional_deps || [];
+		for (let dep of manifest.optional_deps) {
+			graph.addLink({from: manifest.name, to: dep, hard: false});
 		}
-		if (typeof manifest.dependences !== 'undefined') {
-			manifest.dependences.forEach(function (dep) {
-				graph.addDependency(manifest.name, dep);
-			});
-		}
-		
-		// (aliases) manifests, that should be loaded after this.
-		if (typeof manifest.before !=='undefined') {
-			manifest.before.forEach(function (dep) {
-				graph.addDependency(dep, manifest.name);
-			});
+
+		// (aliases) modules, that should be loaded after this.
+		if (typeof manifest.before !== 'undefined') {
+			for (let dep of manifest.before) {
+				graph.addLink({from: dep, to: manifest.name});
+			}
 		}
 
 		// npm dependences
 		if (typeof manifest.deps_npm !== 'undefined') {
-			manifest.deps_npm.forEach(function(dep) {
+			for (let dep of manifest.deps_npm) {
 				
 				// TODO: check versions
 				// TODO: autoinstall deps
@@ -107,7 +104,7 @@ detect('modules/', function (error, modules) {
 						console.log('[Ошибочка]: Для модуля', manifest.name, 'необходим отдельно установленый npm-модуль', name);
 					}
 				}
-			});
+			}
 		}
 
 		// file dependences
@@ -126,14 +123,23 @@ detect('modules/', function (error, modules) {
 		}
 	}
 
+	// Некоторые модули могли отсеяться в процессе обнаружения зависимостей
+	modules = modules.filter ( module => !module.manifest.disabled );
+
+	let solvedGraph = graph.solve(),
+		order = solvedGraph.order;
+
+	if (solvedGraph.errors.length){
+		success = 0;
+		solvedGraph.errors.forEach(console.log.bind(console));
+	}
+
 	if (!success) {
 		console.log('В ходе инициализации возникли ошибки и программа не может быть корректно запущена');
 		process.exit(1);
 	}
-
+	
 	console.log('Составлен граф зависимости модулей');
-
-	let order = graph.overallOrder();
 
 	async.mapSeries(order, function (moduleName, callback) {
 
