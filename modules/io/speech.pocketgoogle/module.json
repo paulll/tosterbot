@@ -11,6 +11,9 @@
 		"lib.debug",
 		"lib.configedit"
 	],
+	"optional_deps": [
+		"notify.spreed"
+	],
 	"desc": "Распознавание ключевого слова по pocketsphinx, остальная речь - Google Speech API",
 	"deps_npm": [
 		{

@@ -16,7 +16,10 @@ api.lib.spreed.show = function (options, text, callback) {
 		return;
 	}
 
-	var proc = child_process.spawn(__dirname + '/bin/displaytext', []);
+	var proc = child_process.spawn(__dirname + '/bin/displaytext', []),
+		close = proc.kill.bind(proc);
+
+	process.on('exit', close);
 
 	options.speed = options.speed || 3;
 
@@ -43,6 +46,7 @@ api.lib.spreed.show = function (options, text, callback) {
 		} else {
 			setTimeout(function(){
 				proc.kill();
+				process.removeListener('exit', close);
 			}, item[0]);
 		}
 	})();
