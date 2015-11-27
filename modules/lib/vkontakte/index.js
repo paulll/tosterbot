@@ -17,7 +17,14 @@ class VKClient  extends EventEmitter {
 	request (method, params, callback) {
 		var retry = setTimeout.bind(null, this.request.bind(this, method, params, callback), 1000);
 
-		params.access_token = params.access_token || this.access_token;
+		if (typeof params.access_token !== 'undefined') {
+			if (!params.access_token) {
+				delete params.access_token;
+			}
+		} else {
+			params.access_token = this.access_token;
+		}
+		
 
 		var request = https.request({
 			hostname: 'api.vk.com',

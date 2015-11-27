@@ -10,6 +10,7 @@
 	"deps": [
 		"core.namespace",
 		"lib.vkontakte",
-		"core.memory"
+		"core.memory",
+		"lib.typo"
 	]
 }

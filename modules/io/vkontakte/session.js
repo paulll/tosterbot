@@ -1,6 +1,7 @@
 "use strict";
 
-var	Session = api.lib.support.Session;
+var	Session = api.lib.support.Session,
+	humanize = api.lib.typo.humanize;
 
 class VKSession extends Session {
 	constructor (provider, client, user_id, timestamp) {
@@ -13,21 +14,37 @@ class VKSession extends Session {
 
 	send (message, callback) {
 
-		console.log('SEND', message, this.user_id);
-		return;
+		let self = this;
 
-		var self = this;
+		let setActivity = function (yes) {
+			self.client.request('messages.setActivity', {
+				user_id: self.user_id,
+				type: yes ? 'typing' : ''
+			}, function () {});
+		}
 
-		this.client.request('messages.send', {
-			user_id: this.user_id,
-			guid: Math.random() * 1e17,
-			message: message.text
-		}, function (error) {
-			if (!error) {
-				self.appendMessage(message);
-			}
-			if (callback) callback(error);
-		});
+		
+		let send = function (text, next) {
+			self.client.request('messages.send', {
+				user_id: self.user_id,
+				guid: Math.random() * 1e17,
+				message: text
+			}, function (error) {
+				if (!error) {
+					setActivity(true);
+					next();
+				}
+				callback && callback(error);
+			});
+		}
+
+		let end = function () {
+			self.appendMessage(message);
+			setActivity(false);
+		}
+
+		setActivity(true);
+		humanize(message.text, {split: true}, send, end);
 	};
 }
 
