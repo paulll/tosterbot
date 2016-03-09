@@ -1,0 +1,3 @@
+@name testertoster
+d = 123
+return d

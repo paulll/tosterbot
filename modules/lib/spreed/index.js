@@ -39,15 +39,19 @@ api.lib.spreed.show = function (options, text, callback) {
 	var items = text.split(/\s/).map((x, i) => options.controller(x, i));
 
 	(function recursive () {
-		let item = items.shift();
-		proc.stdin.write(item[1] + '\n');
-		if (items.length) {
-			setTimeout(recursive, item[0]);
-		} else {
-			setTimeout(function(){
-				proc.kill();
-				process.removeListener('exit', close);
-			}, item[0]);
+		try {
+			let item = items.shift();
+			proc.stdin.write(item[1] + '\n');
+			if (items.length) {
+				setTimeout(recursive, item[0]);
+			} else {
+				setTimeout(function(){
+					proc.kill();
+					process.removeListener('exit', close);
+				}, item[0]);
+			}
+		} catch (err) {
+			console.log('hotfix!', err);
 		}
 	})();
 };

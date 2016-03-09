@@ -1,0 +1,13 @@
+{
+	"name": "lib.paranoid",
+	"desc": "Аккуратно скрывает всякую хрень",
+	"before": [
+		"core.lib"
+	],
+	"deps": [
+		"lib.debug"
+	],
+	"main": "index.js",
+	"deps_npm": [],
+	"deps_files": []
+}

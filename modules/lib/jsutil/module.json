@@ -1,0 +1,10 @@
+{
+	"desc": "Добавляет некоторые полезные функции в прототипы",
+	"main": "index.js",
+	"deps_npm": [],
+	"deps_files": [],
+	"name": "lib.jsutil",
+	"before": [
+		"core.namespace"
+	]
+}

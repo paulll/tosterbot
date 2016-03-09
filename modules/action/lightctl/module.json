@@ -1,0 +1,16 @@
+{
+	"main": "index.js",
+	"name": "action.lightctl",
+	"deps_npm": [],
+	"deps_files": [],
+	"deps": [
+		"core.namespace",
+		"lib.dict",
+		"lib.debug",
+		"core.notify"
+	],
+	"before": [
+		"core.action"
+	],
+	"desc": "control light via arduino"
+}

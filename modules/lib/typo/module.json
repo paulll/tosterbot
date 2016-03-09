@@ -1,0 +1,13 @@
+{
+	"deps_npm": [],
+	"deps_files": [],
+	"main": "index.js",
+	"desc": "Делает текст похожим на человеческий",
+	"name": "lib.typo",
+	"deps": [
+		"core.namespace"
+	],
+	"before": [
+		"core.lib"
+	]
+}

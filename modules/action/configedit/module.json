@@ -1,0 +1,16 @@
+{
+	"deps_files": [],
+	"main": "index.js",
+	"name": "action.configedit",
+	"desc": "Изменение конфигов \"на лету\"",
+	"deps": [
+		"lib.configedit", 
+		"lib.debug",
+		"lib.dict",
+		"lib.confirm"
+	],
+	"deps_npm": [],
+	"before": [
+		"core.action"
+	]
+}

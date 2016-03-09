@@ -1,0 +1,18 @@
+{
+	"deps_npm": [
+		{
+			"name": "node-telegram-bot-api",
+			"shared": true
+		}
+	],
+	"name": "lib.telegram",
+	"deps": [
+		"core.namespace"
+	],
+	"main": "index.js",
+	"deps_files": [],
+	"before": [
+		"core.lib"
+	],
+	"desc": "Telegram Bot API"
+}

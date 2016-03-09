@@ -93,7 +93,7 @@ detect('modules/', function (error, modules) {
 						console.log('[Ошибочка]: Необходим npm-модуль', dep.name, '\n', 'Пожалуйста выполните $ npm i', dep.name);
 					}
 				} else {
-					let name = path.join(module.directory, 'node_modules', dep.name);
+					console.log(dep, manifest.deps_npm)
 					if (fs.existsSync(name)) {
 						if (!fs.statSync(name).isDirectory()){
 							success = false;

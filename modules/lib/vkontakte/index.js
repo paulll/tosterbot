@@ -8,7 +8,7 @@ var https = require('https'),
 	handleError = api.lib.debug.handleError,
 	level = api.lib.debug.level;
 
-class VKClient  extends EventEmitter {
+class VKClient extends EventEmitter {
 	constructor (token) {
 		super();
 		this.access_token = token;

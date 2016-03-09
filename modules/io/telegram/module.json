@@ -1,0 +1,14 @@
+{
+	"name": "io.telegram",
+	"deps": [
+		"core.namespace",
+		"lib.telegram"
+	],
+	"before": [
+		"core.io"
+	],
+	"desc": "Telegram I/O",
+	"deps_npm": [],
+	"deps_files": [],
+	"main": "index.js"
+}

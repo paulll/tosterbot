@@ -1,0 +1,10 @@
+{
+	"name": "core.test",
+	"deps_npm": [],
+	"before": [
+		"core.core"
+	],
+	"desc": "Загружается после всех тестов системы",
+	"deps_files": [],
+	"main": "index.js"
+}

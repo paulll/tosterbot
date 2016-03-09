@@ -11,13 +11,14 @@ class Parser {
 			.replace(/,\s+/gm, ',')
 			.replace(/\s+=\s+/gm, '=')
 			.replace(/^([^\n])/gm, 'LINE_START$1')
-			.match(/(%[^%]+?%|\?|LINE_START|\n|=|\*|!|,|&\(|\)|return\s+|[^%\n?*=!,&()]+)/gm);
+			.match(/(%[^%]+?%|\\.|\?|LINE_START|\n|=|\*|!|,|&\(|\)|return\s+|[^%\n?*=!,&()]+)/gm);
 
 		this.handers
 			.set('LineStart', /^LINE_START$/)
 			.set('LineVariableName', /^(?!#)(?!return\s+)[^%\n?=!,&()]+$/)
 			.set('LineGroupName', /^#[^%\n?=!,&()]+$/)
 			.set('EqualSign', /^=$/)
+			.set('Escaped', /^\\.$/)
 			.set('NotStrict', /^\?$/)
 			.set('Strict', /^!$/)
 			.set('DelimeterComma', /^,$/)
@@ -59,6 +60,11 @@ class Parser {
 		
 	}
 
+	Escaped (token) {
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
+		this.context.get('fragment').push(token[1]);
+	}
+
 	LineStart() {
 		this.wait = ['LineVariableName', 'LineGroupName', 'Return'];
 	}
@@ -76,14 +82,14 @@ class Parser {
 	}
 
 	EqualSign() {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard'];
 		this.context.set('fragment', []);
 		this.context.set('item', []);
 		this.context.set('line', new Set);
 	}
 
 	NotStrict () {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'LineEnd'];
 		this.context.get('item').push(new Set([ // OPTIMIZE -> check if empty
 			this.context.get('fragment'),
 			''
@@ -92,13 +98,13 @@ class Parser {
 	}
 
 	Strict () {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'LineEnd'];
 		this.context.get('item').push(this.context.get('fragment')); // OPTIMIZE -> concat
 		this.context.set('fragment', []);
 	}
 
 	DelimeterComma() {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard'];
 
 		if (this.context.get('fragment')) {
 			// COPY from this.Strict
@@ -144,11 +150,11 @@ class Parser {
 	}
 
 	NamerEnd () {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
 	}
 
 	Variable(token) {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
 		
 		let name = token.substr(1, token.length - 2);
 
@@ -160,12 +166,12 @@ class Parser {
 	}
 
 	Text (token) {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
 		this.context.get('fragment').push(token);
 	}
 
 	Wildcard (token) {
-		this.wait = ['Variable', 'NamerStart', 'Text', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
+		this.wait = ['Variable', 'NamerStart', 'Text', 'Escaped', 'Wildcard', 'DelimeterComma', 'NotStrict', 'Strict', 'LineEnd'];
 		this.context.get('fragment').push(token);
 	}
 

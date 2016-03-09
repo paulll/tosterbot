@@ -1,0 +1,14 @@
+{
+	"deps": [
+		"core.namespace",
+		"lib.support"
+	],
+	"deps_files": [],
+	"main": "index.js",
+	"deps_npm": [],
+	"name": "lib.confirm",
+	"desc": "Подтверждение действия",
+	"before": [
+		"core.lib"
+	]
+}
